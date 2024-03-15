@@ -1,8 +1,36 @@
 <%- include('common/header'); -%>
 
 <body>
-  <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
+<!-- Sorting of posts -->
+ <nav>
+   <h1>Posts</h1>
+   <p>Sort by: </p>
+   <form method="post">
+     <button type="submit">Most recent</button>
+     <button type="submit">Oldest</button>
+     <button type="submit">Closest</button>
+     <button type="submit">Furthest</button>
+     <p>Identified</p>
+     <button type="submit">Reset</button>
+   </form>
+ </nav>
+
+<aside>
+<!-- Filter panel -->
+  <form method="post" id="filterForm">
+    <h2>Search by characteristics</h2
+    <label>Flowers</label>
+    <label>Leaves</label>
+    <p>Does it have seeds or fruits</p>
+    <p>Seed</p>
+    <p>Fruit</p>
+    <p>Additional details</p>
+    <button type="submit">Sun exposure</button>
+    <button type="submit">Colour</button>
+    <br>
+    <input type="submit" value="Search">
+  </form>
+</aside>
 </body>
 
 <%- include('common/footer'); -%>
