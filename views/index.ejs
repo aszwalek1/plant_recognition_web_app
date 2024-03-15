@@ -2,35 +2,63 @@
 
 <body>
 <!-- Sorting of posts -->
- <nav>
-   <h1>Posts</h1>
-   <p>Sort by: </p>
-   <form method="post">
-     <button type="submit">Most recent</button>
-     <button type="submit">Oldest</button>
-     <button type="submit">Closest</button>
-     <button type="submit">Furthest</button>
-     <p>Identified</p>
-     <button type="submit">Reset</button>
-   </form>
- </nav>
+  <nav>
+    <h1>Posts</h1>
+    <p>Sort by: </p>
+    <form method="post">
+      <button type="submit">Most recent</button>
+      <button type="submit">Oldest</button>
+      <button type="submit">Closest</button>
+      <button type="submit">Furthest</button>
+      <label for="identified">Identified</label>
+      <input id="identified" type="checkbox">
+      <button type="submit">Reset</button>
+    </form>
+  </nav>
 
-<aside>
-<!-- Filter panel -->
-  <form method="post" id="filterForm">
-    <h2>Search by characteristics</h2
-    <label>Flowers</label>
-    <label>Leaves</label>
-    <p>Does it have seeds or fruits</p>
-    <p>Seed</p>
-    <p>Fruit</p>
-    <p>Additional details</p>
-    <button type="submit">Sun exposure</button>
-    <button type="submit">Colour</button>
-    <br>
-    <input type="submit" value="Search">
-  </form>
-</aside>
+  <aside>
+  <!-- Filter panel -->
+    <form method="post" id="filterForm">
+      <h2>Search by characteristics</h2>
+      <label>Flowers</label>
+      <input type="checkbox"> <br>
+      <label>Leaves</label>
+      <input type="checkbox">
+      <p>Does it have seeds or fruits</p>
+      <label>Seeds</label>
+      <input type="radio" name="seed_fruit">
+      <label>Fruits</label>
+      <input type="radio" name="seed_fruit">
+      <p>Additional details</p>
+      <div class="dropdown">
+        <button onclick="" class="dropbtn">Sun exposure</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#">Full sun</a>
+          <a href="#">Partial shade</a>
+          <a href="#">Full shade</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button onclick="" class="dropbtn">Colour</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#">White</a>
+          <a href="#">Yellow</a>
+          <a href="#">Orange</a>
+          <a href="#">Red</a>
+          <a href="#">Blue</a>
+          <a href="#">Green</a>
+          <a href="#">Pink</a>
+          <a href="#">Grey</a>
+          <a href="#">Black</a>
+          <a href="#">Brown</a>
+          <a href="#">Purple</a>
+
+        </div>
+      </div>
+      <br>
+      <input type="submit" value="Search">
+    </form>
+  </aside>
 </body>
 
 <%- include('common/footer'); -%>
