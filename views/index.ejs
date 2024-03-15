@@ -26,21 +26,23 @@
       <input type="checkbox">
       <p>Does it have seeds or fruits</p>
       <label>Seeds</label>
-      <input type="radio" name="seed_fruit">
+      <input type="radio" name="seed-fruit">
       <label>Fruits</label>
-      <input type="radio" name="seed_fruit">
+      <input type="radio" name="seed-fruit">
       <p>Additional details</p>
-      <div class="dropdown">
+
+      <div class="sun_dropdown">
         <button onclick="" class="dropbtn">Sun exposure</button>
-        <div id="myDropdown" class="dropdown-content">
+        <div id="sun_dropdown_content" class="dropdown-content">
           <a href="#">Full sun</a>
           <a href="#">Partial shade</a>
           <a href="#">Full shade</a>
         </div>
       </div>
-      <div class="dropdown">
+
+      <div class="colour_dropdown">
         <button onclick="" class="dropbtn">Colour</button>
-        <div id="myDropdown" class="dropdown-content">
+        <div id="colour_dropdown_content" class="dropdown-content">
           <a href="#">White</a>
           <a href="#">Yellow</a>
           <a href="#">Orange</a>
@@ -52,13 +54,27 @@
           <a href="#">Black</a>
           <a href="#">Brown</a>
           <a href="#">Purple</a>
-
         </div>
       </div>
+
       <br>
       <input type="submit" value="Search">
     </form>
   </aside>
+  <br><br>
+  <main>
+    <div class="posts-grid">
+      <!-- Create posts here  -->
+      <div class="post">
+        <img src=""> Post Image
+        <h3>Post name</h3>
+        <a href="">More details</a>
+        <p>Post location and time</p>
+        <p>Status: </p>
+      </div>
+
+    </div>
+  </main>
 </body>
 
 <%- include('common/footer'); -%>
