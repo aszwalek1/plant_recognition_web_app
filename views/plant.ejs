@@ -1,0 +1,52 @@
+<%- include('common/header'); -%>
+
+<!-- TODO use media queries in stylesheet to hide/ show desktop/mobile divs accordingly-->
+
+<body>
+    <h1><%= title %></h1>
+    <div class="desktop-datetime">
+        <p id="dateTime"><%= postTime %> - <%= postDate %> </p>
+    </div>
+
+    <img src="<%= postImageURL %>" alt="user submitted picture of a plant"/>
+
+    <div class="mobile-hide-show-description-btn">
+        <!-- TODO static js script to hide and show plantDescriptions div on mobile-->
+        <button>Hide Details</button>
+    </div>
+
+    <div id="plantDescription">
+        <ul>
+            <% for (var postDetail of postDetails) { %>
+                <li><%= postDetail %></li>
+            <% } %>
+        </ul>
+        <p>Spotted in <%= postLocation %></p>
+        <p>Submitted by <%= postUsername %></p>
+        <div class="mobile-datetime">
+            <p id="dateTime"><%= postTime %> - <%= postDate %> </p>
+        </div>
+    </div>
+
+    <div id="liveChat">
+        <h2>Live Chat</h2>
+        <!-- TODO messages here i guess -->
+
+        <form id="username">
+            <label>
+                <input placeholder="Please provide a nickname">
+            </label>
+            <button>Submit</button>
+        </form>
+
+        <form id="message">
+            <label>
+                <input placeholder="Your Message here ... ">
+            </label>
+            <button>Send</button>
+        </form>
+    </div>
+
+</body>
+
+<%- include('common/footer'); -%>
