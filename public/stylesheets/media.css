@@ -1,11 +1,8 @@
-@media (max-width: 768px) {
-    .desktop-sorting, .desktop-filter {
-        display: none;
-    }
+
+.desktop-sorting, .desktop-filter {
+    display: none;
 }
 
-@media (min-width: 768px) {
-    .mobile-menu {
-        display: none;
-    }
+.mobile-menu {
+    display: inline;
 }
