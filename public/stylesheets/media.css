@@ -1,8 +1,8 @@
 
-.desktop-sorting, .desktop-filter {
+.desktop-sorting, .desktop-filter, .desktop-datetime {
     display: none;
 }
 
-.mobile-menu {
+.mobile-menu, .mobile-hide-show-description-btn, .mobile-datetime {
     display: inline;
 }
