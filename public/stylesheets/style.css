@@ -7,6 +7,6 @@ a {
   color: #00B7FF;
 }
 
-.mobile-menu {
+.mobile-menu, .mobile-hide-show-description-btn, .mobile-datetime {
   display: none;
 }
