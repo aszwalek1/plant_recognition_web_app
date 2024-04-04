@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/** GET create page */
+/** GET plant page */
 router.get('/', function(req, res, next) {
-    res.render('create', { title: 'Create Post' });
+    res.render('update', { title: 'Update Post' });
 });
 
 

@@ -1,0 +1,38 @@
+<%- include('common/header'); -%>
+
+<body>
+<h1><%= title %></h1>
+<div style="display: flex;">
+    <div style="flex: 1;">
+        <h2>Enter Details</h2>
+        <form action="/submit" method="post">
+            <label for="name">Plant Name: *</label><br>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="nickname">Nickname: *</label><br>
+            <input type="text" id="nickname" name="nickname" required><br>
+            <%# error message here for nickname match %>
+
+            <label for="status">Status: *</label><br>
+            <select id="status" name="status" required>
+                <option value="completed">Completed</option>
+                <option value="In-progress">In-progress</option>
+            </select><br><br>
+
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <div style="flex: 1;">
+        <h2>Preview</h2>
+        <div id="preview">
+            <img id="previewImage" src="#" alt="Preview Image" style="max-width: 100%;">
+            <p id="previewName"></p>
+            <p id="previewLocation"></p>
+            <%# need to add nickname of original post and also image from original post and location%>
+        </div>
+    </div>
+</div>
+<script src="/javascript/preview.js"></script>
+</body>
+
+<%- include('common/footer'); -%>
