@@ -9,6 +9,9 @@ var plantRouter = require('./routes/plant');
 var createRouter = require('./routes/create');
 var updateRouter = require('./routes/update');
 
+var usersRouter = require('./routes/users');
+var createRouter = require('./routes/create');
+var updateRouter = require('./routes/update');
 
 var app = express();
 
@@ -24,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/plant/', plantRouter);
+app.use('/users', usersRouter);
 app.use('/create/', createRouter);
 app.use('/update/', updateRouter);
 
