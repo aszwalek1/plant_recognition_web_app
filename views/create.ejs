@@ -6,20 +6,20 @@
     <div style="flex: 1;">
         <h2>Enter Details</h2>
         <form action="/submit" method="post">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br>
+            <label for="name">Plant Name: *</label><br>
+            <input type="text" id="name" name="name" required><br>
 
-            <label for="image">Upload Image:</label><br>
-            <input type="file" id="image" name="image" accept="image/*"><br><br>
+            <label for="image">Upload Image: *</label><br>
+            <input type="file" id="image" name="image" accept="image/*" required><br>
 
-            <label for="description">Description:</label><br>
-            <input type="text" id="description" name="description"><br>
+            <label for="description">Description: *</label><br>
+            <input type="text" id="description" name="description" required><br>
 
-            <label for="location">Location:</label><br>
-            <input type="text" id="location" name="location"><br>
+            <label for="location">Location: *</label><br>
+            <input type="text" id="location" name="location" required><br>
 
-            <label for="nickname">Nickname:</label><br>
-            <input type="text" id="nickname" name="nickname"><br>
+            <label for="nickname">Your Nickname: *</label><br>
+            <input type="text" id="nickname" name="nickname" required><br>
 
             <label>Characteristics:</label><br>
             <input type="checkbox" id="fruit" name="characteristics" value="fruit">
@@ -46,10 +46,10 @@
                 <option value="shade">Shade</option>
             </select><br>
 
-            <label for="status">Status:</label><br>
-            <select id="status" name="status">
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+            <label for="status">Status: *</label><br>
+            <select id="status" name="status" required>
+                <option value="completed">Completed</option>
+                <option value="In-progress">In-progress</option>
             </select><br><br>
 
             <input type="submit" value="Upload">
@@ -64,35 +64,7 @@
         </div>
     </div>
 </div>
-
-<script>
-    const nameInput = document.getElementById('name');
-    const locationInput = document.getElementById('location');
-    const imageInput = document.getElementById('image');
-    const previewImage = document.getElementById('previewImage');
-    const previewName = document.getElementById('previewName');
-    const previewLocation = document.getElementById('previewLocation');
-
-    nameInput.addEventListener('input', updatePreview);
-    locationInput.addEventListener('input', updatePreview);
-    imageInput.addEventListener('change', updateImagePreview);
-
-    function updatePreview() {
-        previewName.textContent = nameInput.value;
-        previewLocation.textContent = locationInput.value;
-    }
-
-    function updateImagePreview(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            previewImage.src = e.target.result;
-        }
-
-        reader.readAsDataURL(file);
-    }
-</script>
+<script src="/javascript/preview.js"></script>
 </body>
 
 <%- include('common/footer'); -%>
