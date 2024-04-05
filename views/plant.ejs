@@ -1,6 +1,11 @@
+<%- include('common/head'); -%>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="/javascripts/chat_client.js"></script>
+</head>
+
 <%- include('common/header'); -%>
 
-<body>
+<body onload="init()">
     <h1><%= title %></h1>
     <div class="desktop-datetime">
         <p id="dateTime"><%= postTime %> - <%= postDate %> </p>
@@ -26,23 +31,24 @@
         </div>
     </div>
 
-    <div id="liveChat">
-        <h2>Live Chat</h2>
-        <!-- TODO messages here i guess -->
-
-        <form id="username">
-            <label>
-                <input placeholder="Please provide a nickname">
-            </label>
-            <button>Submit</button>
+    <h2>Live Chat</h2>
+    <div id="joinChat">
+        <form onsubmit="return false;">
+            <input type="text" id="username" name="username-input" placeholder="Please provide a nickname">
+            <button id="connectToChat" >Join chat</button>
         </form>
-
-        <form id="message">
-            <label>
-                <input placeholder="Your Message here ... ">
-            </label>
-            <button>Send</button>
-        </form>
+    </div>
+    <div id="chatInterface" style="display: none">
+        <div id="chatHistory"></div>
+        <div id="sendMessage">
+            <form onsubmit="return false;">
+                <p>
+                    <label for="username">chat: </label>
+                    <input type="text" id="chatInput" name="chat-input" placeholder="Your message...">
+                    <button id="chatSend" onclick="sendMessage()">Send</button>
+                </p>
+            </form>
+        </div>
     </div>
 
 </body>
