@@ -5,6 +5,8 @@ function init() {
     document.getElementById('joinChat').style.display = 'block';
     document.getElementById('chatInterface').style.display = 'none';
 
+    document.getElementById('connectToChat').addEventListener('click', connectToChat)
+
     socket.on('joined', function(userId) {
         if(userId === username) {
             hideUsernameInput();
