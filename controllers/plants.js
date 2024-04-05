@@ -1,4 +1,4 @@
-const Plants = require('../models/plant')
+const Plant = require('../models/plant')
 
 /**
  * Creates a plant document in the database.
@@ -7,24 +7,14 @@ const Plants = require('../models/plant')
  * @returns {Promise<string>} result of saving plant in db, either plant as string or null if error
  */
 function create(plantData, imagePath) {
-    let plant = new Plants(
+    let plant = new Plant(
         {
             name: plantData.name,
             description: plantData.description,
-            characteristics: {
-                hasFlowers: plantData.hasFlowers,
-                hasLeaves: plantData.hasLeaves,
-                hasFruit: plantData.hasFruit,
-                hasSeeds: plantData.hasSeeds,
-                sunExposure: plantData.sunExposure,
-                //TODO? height:
-                //TODO? spread:
-                //TODO colour
-            },
+            characteristics: plantData.characteristics,
             imagePath: imagePath,
             nameStatus: plantData.nameStatus,
             username: plantData.username,
-            //TODO location
             date: plantData.date,
         }
     )
@@ -44,4 +34,3 @@ function create(plantData, imagePath) {
 }
 
 exports.create = create
-

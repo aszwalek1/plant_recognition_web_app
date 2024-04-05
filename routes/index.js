@@ -21,14 +21,20 @@ router.get('/temp', function(req, res, next) {
         hasFruit: true,
         hasSeeds: true,
         sunExposure: "full",
+        height: 10,
+        spread: 5,
+        colour: "#e66465"
       },
       nameStatus: "in-progress",
       username: "username",
       date: Date.now(),
     },
-    "")
+    ""
+  )
 
-  resultPromise.then(result => console.log(result))
+  resultPromise.then(result => {
+      console.log(result);
+  })
 
   res.render('index', { title: 'temp database test' });
 })
