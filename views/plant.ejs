@@ -1,3 +1,8 @@
+<%- include('common/head'); -%>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="/javascripts/chat_client.js"></script>
+</head>
+
 <%- include('common/header'); -%>
 
 <body onload="init()">
@@ -30,7 +35,7 @@
     <div id="joinChat">
         <form onsubmit="return false;">
             <input type="text" id="username" name="username-input" placeholder="Please provide a nickname">
-            <button id="connectToChat" onclick="connectToChat()">Join chat</button>
+            <button id="connectToChat" >Join chat</button>
         </form>
     </div>
     <div id="chatInterface" style="display: none">
