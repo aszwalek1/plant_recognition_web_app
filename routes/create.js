@@ -1,11 +1,11 @@
+var multer = require('multer');
 var express = require('express');
 var router = express.Router();
-var multer = require('multer');
 var plants = require('../controllers/plants');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/uploads/');
+        cb(null, '../public/images/uploads/');
     },
     filename: function (req, file, cb) {
         var original = file.originalname;
