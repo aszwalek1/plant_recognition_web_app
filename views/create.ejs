@@ -5,12 +5,12 @@
 <div style="display: flex;">
     <div style="flex: 1;">
         <h2>Enter Details</h2>
-        <form action="/submit" method="post">
+        <form action="/create" method="POST" enctype="multipart/form-data">
             <label for="name">Plant Name: *</label><br>
             <input type="text" id="name" name="name" required><br>
 
             <label for="image">Upload Image: *</label><br>
-            <input type="file" id="image" name="image" accept="image/*" required><br>
+            <input type="file" id="image" name="myImg" accept="image/*" required><br>
 
             <label for="description">Description: *</label><br>
             <input type="text" id="description" name="description" required><br>

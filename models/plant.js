@@ -32,11 +32,15 @@ const plantSchema = new Schema(
 plantSchema.virtual('characteristics.colourNums').get( function() {
     const colour = this.characteristics.colour;
 
-    return [
-        Number("0x" + colour.substring(1,3)), // red,
-        Number("0x" + colour.substring(3,5)), // green,
-        Number("0x" + colour.substring(5,7)) // blue
-    ]
+    if (colour === undefined) {
+        return undefined
+    } else {
+        return [
+            Number("0x" + colour.substring(1, 3)), // red,
+            Number("0x" + colour.substring(3, 5)), // green,
+            Number("0x" + colour.substring(5, 7)) // blue
+        ]
+    }
 })
 
 plantSchema.set('toObject',  {getters: true, virtuals: true});
