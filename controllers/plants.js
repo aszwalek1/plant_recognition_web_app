@@ -33,4 +33,24 @@ function create(plantData, imagePath) {
     return result
 }
 
+/**
+ * Gets all the plant documents in the database.
+ * @returns {Promise<string>} all the plants in db as JSON string, or null if error occurred
+ * */
+function getAll() {
+    let result = Plant.find({}).then(
+        plants => {
+            return JSON.stringify(plants)
+        }
+    ).catch(
+        err => {
+            console.log(err)
+            return null
+        }
+    )
+
+    return result
+}
+
 exports.create = create
+exports.getAll = getAll
