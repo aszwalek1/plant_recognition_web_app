@@ -17,7 +17,7 @@ const plantSchema = new Schema(
             colour: String // hexadecimal number given by <input type="color"></input
         },
         imagePath: String,
-        nameStatus: {type: String, enum: ["completed", "in-progress"]},
+        nameStatus: {type: String, enum: ["Completed", "In-progress"]},
         username: String,
         chatMessages:[{
             message: String,
