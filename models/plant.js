@@ -25,7 +25,7 @@ const plantSchema = new Schema(
             datetime: Date
         }],
         //TODO location: type: ? ,
-        date: Date,
+        date: {type: Date, default: Date.now},
     }
 );
 

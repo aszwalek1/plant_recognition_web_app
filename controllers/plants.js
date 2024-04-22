@@ -28,7 +28,7 @@ function create(plantData, imagePath) {
             imagePath: imagePath,
             nameStatus: plantData.status,
             username: plantData.username,
-            date: plantData.date,
+            // TODO add location to plant model
         }
     )
 
