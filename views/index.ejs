@@ -83,17 +83,29 @@
   <br><br>
 
   <main>
-    <div class="posts-grid">
-      <!-- Create posts here  -->
-      <div class="post">
-        <img src=""> Post Image
-        <h3>Post name</h3>
-        <a href="">More details</a>
-        <p>Post location and time</p>
-        <p>Status: </p>
-      </div>
+    <% if (plants != null) { %>
+      <div class="posts-grid">
+        <% for (plant of plants) { %>
+          <div class="post">
+            <% let imagePath = plant.imagePath %>
+            <% if (imagePath.startsWith("public\\")) { %>
+              <% imagePath = imagePath.substring(7) %>
+            <% } %>
+            <img src="<%=imagePath%>" />
 
-    </div>
+            <h3><%=plant.name%></h3>
+
+            <a href="">More details</a> <!-- TODO set link routing to plant's page -->
+
+            <% let date = new Date(plant.date) %>
+            <p><%="(location TODO) " + date.toDateString()%></p> <!-- TODO add location when added to db -->
+
+            <p><%="Status: " + plant.nameStatus%></p>
+
+          </div>
+        <% } %>
+      </div>
+    <% } %>
   </main>
 </body>
 
