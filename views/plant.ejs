@@ -11,7 +11,7 @@
         <p id="dateTime"><%= postDate %> </p>
     </div>
 
-    <img src="<%= plant.imagePath %>" alt="user submitted picture of a plant"/>
+    <img src="<%= postImageURL %>" alt="user submitted picture of a plant"/>
 
     <div class="mobile-hide-show-description-btn">
         <!-- TODO static js script to hide and show plantDescriptions div on mobile-->
@@ -24,6 +24,22 @@
                 <li><%= postDetail %></li>
             <% } %>
         </ul>
+        <div id="plantCharacteristics">
+            <% if (postFlowers) { %>
+                <p>This plant has flowers.</p>
+            <% } %>
+            <% if (postLeaves) { %>
+                <p>This plant has leaves.</p>
+            <% } %>
+            <% if (postFruit) { %>
+                <p>This plant has fruit.</p>
+            <% } %>
+            <% if (postFlowers) { %>
+                <p>This plant has seeds.</p>
+            <% } %>
+            <p>Sun Exposure: <%= postSun %></p>
+
+        </div>
         <p>Spotted in <%= postLocation %></p>
         <p>Submitted by <%= postUsername %></p>
         <div class="mobile-datetime">

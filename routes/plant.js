@@ -18,7 +18,12 @@ router.get('/:id', async (req, res, next) => {
             postImageURL: plant.imagePath,
             postDetails: [plant.description], // You can add more details here if needed
             postLocation: plant.location,
-            postUsername: plant.username
+            postUsername: plant.username,
+            postLeaves: plant.characteristics.hasLeaves,
+            postSeeds: plant.characteristics.hasSeeds,
+            postFlowers: plant.characteristics.hasFlowers,
+            postFruit: plant.characteristics.hasFruit,
+            postSun: plant.characteristics.sunExposure,
         };
 
         res.render('plant', options);
