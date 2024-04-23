@@ -49,8 +49,28 @@ function create(plantData, imagePath) {
 }
 
 /**
+ * Get a plant by its id
+ * @param id the plants id
+ * @returns {Promise<string>} a promise, either plant as string or null if error
+ * */
+function get(id) {
+    let result = Plant.findById(id).then(
+        plant => {
+            return JSON.stringify(plant)
+        }
+    ).catch(
+        err => {
+            console.log(err)
+            return null
+        }
+    )
+
+    return result
+}
+
+/**
  * Gets all the plant documents in the database.
- * @returns {Promise<string>} all the plants in db as JSON string, or null if error occurred
+ * @returns {Promise<list<string>>} all the plants in db as JSON strings, or null if error occurred
  * */
 function getAll() {
     let result = Plant.find({}).then(
@@ -68,4 +88,5 @@ function getAll() {
 }
 
 exports.create = create
+exports.get = get
 exports.getAll = getAll
