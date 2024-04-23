@@ -1,24 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-// Import the Plant model
-const Plant = require('../models/plant');
+var plants = require('../controllers/plants');
+var Plant = require('../models/plant')
 
 // Route to render the update form for a specific plant
 router.get('/:id', async (req, res, next) => {
-    try {
-        // Find the plant by ID
-        const plant = await Plant.findById(req.params.id);
-        if (!plant) {
-            // If plant not found, render a 404 page or redirect to an error page
-            return res.status(404).send('Plant not found');
+    const plantPromise = plants.get(req.params.id);
+    plantPromise.then(
+        plantStr => {
+            if (plantStr) {
+                let plant = JSON.parse(plantStr)
+                res.render('update', { title: 'Update Plant', plant: plant });
+            } else {
+                res.render('error', { title: 'Plant could not be found' })
+            }
         }
-        // Render the update form with the plant data
-        res.render('update', { title: 'Update Plant', plant: plant });
-    } catch (err) {
-        // Handle errors
-        next(err);
-    }
+    )
 });
 
 // Route to handle the form submission and update the plant
