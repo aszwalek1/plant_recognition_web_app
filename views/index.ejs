@@ -87,11 +87,7 @@
       <div class="posts-grid">
         <% for (plant of plants) { %>
           <div class="post">
-            <% let imagePath = plant.imagePath %>
-            <% if (imagePath.startsWith("public\\")) { %>
-              <% imagePath = imagePath.substring(7) %>
-            <% } %>
-            <img src="<%=imagePath%>" />
+            <img src="<%=plant.imagePath%>" />
 
             <h3><%=plant.name%></h3>
 
