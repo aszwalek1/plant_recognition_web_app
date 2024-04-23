@@ -4,28 +4,27 @@
 <h1><%= title %></h1>
 <div style="display: flex;">
     <div style="flex: 1;">
-        <h2>Enter Details</h2>
-        <form action="/submit" method="post">
+        <h2>Update Plant</h2>
+        <form action="/update/<%= plant._id %>" method="post">
             <label for="name">Plant Name: *</label><br>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" value="<%= plant.name %>" required><br>
 
-            <label for="nickname">Nickname: *</label><br>
-            <input type="text" id="nickname" name="nickname" required><br>
-            <%# error message here for nickname match %>
+            <label for="nickname">Nickname (Must Match Original): *</label><br>
+            <input type="text" id="nickname" name="nickname" value="<%= plant.username %>" required><br>
 
             <label for="status">Status: *</label><br>
             <select id="status" name="status" required>
-                <option value="completed">Completed</option>
-                <option value="In-progress">In-progress</option>
+                <option value="completed" <%= (plant.nameStatus === 'completed') ? 'selected' : '' %>>Completed</option>
+                <option value="In-progress" <%= (plant.nameStatus === 'In-progress') ? 'selected' : '' %>>In-progress</option>
             </select><br><br>
 
-            <input type="submit" value="Upload">
+            <input type="submit" value="Update">
         </form>
     </div>
     <div style="flex: 1;">
         <h2>Preview</h2>
         <div id="preview">
-            <img id="previewImage" src="#" alt="Preview Image" style="max-width: 100%;">
+            <img id="previewImage" src="/<%= plant.imagePath %>" alt="Preview Image" style="max-width: 100%;">
             <p id="previewName"></p>
             <p id="previewLocation"></p>
             <%# need to add nickname of original post and also image from original post and location%>

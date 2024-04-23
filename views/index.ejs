@@ -87,15 +87,11 @@
       <div class="posts-grid">
         <% for (plant of plants) { %>
           <div class="post">
-            <% let imagePath = plant.imagePath %>
-            <% if (imagePath.startsWith("public\\")) { %>
-              <% imagePath = imagePath.substring(7) %>
-            <% } %>
-            <img src="<%=imagePath%>" />
+            <img src="<%=plant.imagePath%>" />
 
             <h3><%=plant.name%></h3>
 
-            <a href="">More details</a> <!-- TODO set link routing to plant's page -->
+            <a href="/plant/<%= plant._id %>">More Details</a> <!-- TODO set link routing to plant's page -->
 
             <% let date = new Date(plant.date) %>
             <p><%="(location TODO) " + date.toDateString()%></p> <!-- TODO add location when added to db -->

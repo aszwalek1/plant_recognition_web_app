@@ -18,7 +18,9 @@ function create(plantData, imagePath) {
         // colour: TODO change colour in create form to colour picker
     }
 
-    console.log(characteristics)
+    if (imagePath.startsWith("public\\")) {
+        imagePath = imagePath.substring(7)
+    }
 
     let plant = new Plant(
         {
