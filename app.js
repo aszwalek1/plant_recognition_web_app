@@ -25,6 +25,8 @@ app.use('/', indexRouter);
 app.use('/plant/', plantRouter);
 app.use('/create/', createRouter);
 app.use('/update/', updateRouter);
+app.use('/public/images/uploads', express.static(path
+    .join(__dirname, '/public/images/uploads')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,23 +1,31 @@
 var express = require('express');
 var router = express.Router();
+const Plant = require('../models/plant');
 
 /** GET plant page */
-router.get('/', function(req, res, next) {
+router.get('/:id', async (req, res, next) => {
+    try {
+        const plant = await Plant.findById(req.params.id);
+        if (!plant) {
+            return res.status(404).send('Plant not found');
+        }
 
-    options = {
-        title: 'Plant Name Here',
-        postTime: 'time here',
-        postDate: 'date here',
-        postImageURL: 'todo.png',
-        postDetails: [
-            "detail 1 lorem ipsum lorem ipsum",
-            "detail 2 lorem ipsum",
-            "detail 3 lorem ipsum"
-        ],
-        postLocation: 'location here',
-        postUsername: 'user nickname here'
+        // Construct options object with plant details
+        const options = {
+            title: plant.name,
+            //postTime: plant.createdAt.toLocaleTimeString(), // Example time formatting
+            postDate: plant.date, // Example date formatting
+            postImageURL: plant.imagePath,
+            postDetails: [plant.description], // You can add more details here if needed
+            postLocation: plant.location,
+            postUsername: plant.username
+        };
+
+        res.render('plant', options);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching plant details');
     }
-    res.render('plant', options);
 });
 
 module.exports = router;

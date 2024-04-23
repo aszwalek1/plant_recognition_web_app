@@ -95,7 +95,7 @@
 
             <h3><%=plant.name%></h3>
 
-            <a href="">More details</a> <!-- TODO set link routing to plant's page -->
+            <a href="/plant/<%= plant._id %>">More Details</a> <!-- TODO set link routing to plant's page -->
 
             <% let date = new Date(plant.date) %>
             <p><%="(location TODO) " + date.toDateString()%></p> <!-- TODO add location when added to db -->
