@@ -1,6 +1,7 @@
 let username = null;
 let socket = io();
 
+
 function init() {
     document.getElementById('joinChat').style.display = 'block';
     document.getElementById('chatInterface').style.display = 'none';
@@ -22,14 +23,13 @@ function init() {
     });
 }
 
-function sendMessage() {
+function sendMessage(plantId) {
     let message = document.getElementById('chatInput').value;
-    socket.emit('chat', username, message);
+    socket.emit('chat', plantId, username, message);
 }
 
 function connectToChat() {
     username = document.getElementById('username').value;
-    console.log(username);
     socket.emit('join chat', username);
 }
 
