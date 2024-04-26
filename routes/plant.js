@@ -9,7 +9,7 @@ router.get('/:id', async (req, res, next) => {
         plantStr => {
             if (plantStr) {
                 let plant = JSON.parse(plantStr)
-                res.render('plant', {title: plant.name, plant: plant});
+                res.render('plant', {title: "View Plant", plant: plant});
             } else {
                 res.render('error', {title: 'Plant could not be found'})
             }

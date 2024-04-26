@@ -1,8 +1,48 @@
 
 .desktop-sorting, .desktop-filter, .desktop-datetime {
-    display: none;
+    display: flex;
 }
 
 .mobile-menu, .mobile-hide-show-description-btn, .mobile-datetime {
     display: inline;
+}
+
+@media screen and (max-width: 768px) {
+    .head-button {
+        margin-left: 50%;
+    }
+
+    .post {
+        width: calc(75% - 10px);
+        margin-bottom: 2%;
+    }
+
+    .plant-item {
+        width: 100%; /* Display one plant item per row on smaller screens */
+    }
+
+    .create-preview{
+        width: calc(90% - 10px);
+        margin-bottom: 2%;
+    }
+
+    .image-preview {
+        width: 75%;
+        height: auto;
+    }
+
+    .img-view {
+        width: 90%;
+        height: auto;
+    }
+
+    .plant-description{
+        width: 90%;
+        height: auto;
+    }
+
+    .chat{
+        width: 90%;
+        height: auto;
+    }
 }

@@ -3,50 +3,52 @@
     <script src="/javascripts/chat_client.js"></script>
 </head>
 
-<%- include('common/header'); -%>
 
 <body onload="init()">
-    <h1><%= title %></h1>
+    <h2><%= plant.name%></h2>
     <% const plantDate = new Date(plant.date) %>
     <div class="desktop-datetime">
         <p id="dateTime"><%= plantDate.toDateString() %> </p>
     </div>
-
-    <img src="<%= '../' + plant.imagePath %>" alt="user submitted picture of a plant"/>
+    <div class="view-page">
+    <img class="img-view" src="<%= '../' + plant.imagePath %>" alt="user submitted picture of a plant"/>
 
     <div class="mobile-hide-show-description-btn">
         <!-- TODO static js script to hide and show plantDescriptions div on mobile-->
         <button>Hide Details</button>
     </div>
 
-    <div id="plantDescription">
+    <div class="plant-description" id="plantDescription">
+        <p><%="Plant Description: " + plant.description%></p>
         <div id="plantCharacteristics">
             <% if (plant.characteristics.hasFlowers) { %>
-                <p>This plant has flowers.</p>
+                <p>This plant has flowers</p>
             <% } %>
             <% if (plant.characteristics.hasLeaves) { %>
-                <p>This plant has leaves.</p>
+                <p>This plant has leaves</p>
             <% } %>
             <% if (plant.characteristics.hasFruit) { %>
-                <p>This plant has fruit.</p>
+                <p>This plant has fruit</p>
             <% } %>
             <% if (plant.characteristics.hasSeeds) { %>
-                <p>This plant has seeds.</p>
+                <p>This plant has seeds</p>
             <% } %>
-            <p><%= "Sun Exposure:" + plant.characteristics.sunExposure %></p>
+            <p><%= "Sun Exposure: " + plant.characteristics.sunExposure %></p>
 
         </div>
         <p><%= "Spotted in " + " TODO " %></p> <!--// TODO location-->
         <p><%= "Submitted by " + plant.username %></p>
-        <div class="mobile-datetime">
-            <p id="dateTime"><%= plantDate.toDateString() %> </p>
-        </div>
+        <p><%= "Date of Sighting: " + plantDate.toLocaleString() %> </p>
+        <p><%= "Status: " + plant.nameStatus%></p>
+        <% if (plant.nameStatus !== 'Completed') { %>
+            <a href="/update/<%= plant._id %>">
+                <button>Update Plant</button>
+            </a>
+        <% } %>
     </div>
-    <a href="<%= "/update/" + plant._id %>">
-        <button>Update Plant</button>
-    </a>
 
 
+    <div class="chat">
     <h2>Live Chat</h2>
     <div id="joinChat">
         <form onsubmit="return false;">
@@ -65,6 +67,8 @@
                 </p>
             </form>
         </div>
+    </div>
+    </div>
     </div>
 
 </body>

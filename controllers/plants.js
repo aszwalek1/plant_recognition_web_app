@@ -87,6 +87,54 @@ function getAll() {
     return result
 }
 
+exports.filterPlants = async function(formData) {
+    try {
+        let filteredPlants;
+
+        // Logic to filter plants based on the selected date option
+        if (formData.date === 'recent') {
+            // Sort by most recent
+            filteredPlants = await Plant.find().sort({ date: -1 }); // Sort by descending order of date
+        } else if (formData.date === 'oldest') {
+            // Sort by oldest
+            filteredPlants = await Plant.find().sort({ date: 1 }); // Sort by ascending order of date
+        } else {
+            // No date filter applied, return all plants
+            filteredPlants = await Plant.find();
+        }
+
+        if (formData.ident || formData.flower || formData.leaf || formData.seeds || formData.fruit) {
+            filteredPlants = filteredPlants.filter(plant => {
+                // Filter plants that match any selected characteristic
+                return (
+                    (formData.ident && plant.nameStatus === "Completed") ||
+                    (formData.flower && plant.characteristics.hasFlowers === true) ||
+                    (formData.leaf && plant.characteristics.hasLeaves === true) ||
+                    (formData.seeds && plant.characteristics.hasSeeds === true) ||
+                    (formData.fruit && plant.characteristics.hasFruit === true)
+                );
+            });
+        }
+
+        if (formData.sunExposure) {
+            console.log("Filtering by Sun Exposure:", formData.sunExposure);
+            filteredPlants = filteredPlants.filter(plant => {
+                // Filter plants that match the selected sun exposure
+                console.log("Plant Sun Exposure:", plant.characteristics.sunExposure);
+                return plant.characteristics.sunExposure === formData.sunExposure;
+            });
+        }
+
+
+
+        return filteredPlants;
+
+    } catch (error) {
+        console.error("Error filtering plants:", error);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+};
+
 exports.create = create
 exports.get = get
 exports.getAll = getAll

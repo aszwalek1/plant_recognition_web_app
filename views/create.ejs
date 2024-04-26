@@ -1,9 +1,10 @@
-<%- include('common/header'); -%>
+<%- include('common/head'); -%>
+</head>
 
 <body>
-<h1><%= title %></h1>
-<div style="display: flex;">
-    <div style="flex: 1;">
+<h2><%= title %></h2>
+<div class="create">
+    <div class="create-form">
         <h2>Enter Details</h2>
         <form action="/create" method="POST" enctype="multipart/form-data">
             <label for="name">Plant Name: *</label><br>
@@ -55,10 +56,10 @@
             <input type="submit" value="Upload">
         </form>
     </div>
-    <div style="flex: 1;">
+    <div class="create-preview">
         <h2>Preview</h2>
         <div id="preview">
-            <img id="previewImage" src="#" alt="Preview Image" style="max-width: 100%;">
+            <img class="image-preview" id="previewImage" src="#" alt="Preview Image">
             <p id="previewName"></p>
             <p id="previewLocation"></p>
         </div>
