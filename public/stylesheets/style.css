@@ -10,3 +10,95 @@ a {
 .mobile-menu, .mobile-hide-show-description-btn, .mobile-datetime {
   display: none;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-button {
+  display: flex;
+  align-items: center;
+}
+
+.head-button {
+  margin-left: 90%;
+}
+
+.posts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.post {
+  width: calc(30% - 10px);
+  margin-bottom: 2%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.create {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.create-preview{
+  width: 60%;
+  margin-bottom: 2%;
+}
+
+.create-form {
+  width: 40%;
+  margin-bottom: 2%;
+}
+
+.image-preview {
+  width: 40%;
+  height: auto;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.radio-filter,
+.search-character,
+.dropdown-sun,
+.dropdown-colour {
+  display: inline-block; /* Set display to inline-block */
+  width: auto; /* Allow the width to adjust based on content */
+  margin-right: 50px; /* Add some spacing between the divs */
+}
+
+.form-buttons{
+  margin-top: 5%;
+}
+
+.view-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.img-view {
+  width: 30%;
+  height: auto;
+}
+
+.plant-description{
+  width: 30%;
+  height: auto;
+}
+
+.chat{
+  width: 30%;
+  height: auto;
+}
