@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbName = 'mongodb://localhost:27017/plant-recognition';
+const dbName = 'mongodb://127.0.0.1:27017/plant-recognition';
 
 mongoose.Promise = global.Promise
 
