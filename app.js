@@ -28,6 +28,8 @@ app.use('/update/', updateRouter);
 app.use('/public/images/uploads', express.static(path
     .join(__dirname, '/public/images/uploads')));
 
+app.use('/sw.js', express.static(path.join(__dirname, 'public/index')));
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
