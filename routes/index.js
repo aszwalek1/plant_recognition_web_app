@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let plantsController = require('../controllers/plants')
 
-/* GET home page. */
+/** GET home page. */
 router.get('/', function (req, res, next) {
     let plantsPromise = plantsController.getAll()
 
@@ -12,15 +12,18 @@ router.get('/', function (req, res, next) {
     })
 });
 
+/** POST request to filter plants on home page */
 router.post('/', async function(req, res, next) {
     try {
-        // Call the filterPlants function in the controller
-        const filteredPlants = await plantsController.filterPlants(req.body);
+        const filterFormData = req.body;
+        const filteredPlants = await plantsController.filterPlants(filterFormData);
 
-        // Render the view with the filtered plants
-        res.render('index', { title: 'Plant Recognition', plants: filteredPlants });
+        res.render('index', {
+            title: 'Plant Recognition',
+            plants: filteredPlants,
+            currentFilters:filterFormData
+        });
     } catch (error) {
-        // Handle errors
         next(error);
     }
 });

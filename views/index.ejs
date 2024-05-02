@@ -22,42 +22,82 @@
       <form id="filterForm" action="/" method="post">
         <div class="radio-filter">
           <p>Sort by: </p>
-          <label><input type="radio" name="date" value="recent"> Most Recent</label><br>
-          <label><input type="radio" name="date" value="oldest"> Oldest</label><br>
-          <label><input type="radio" name="distance" value="closest"> Closest</label><br>
-          <label><input type="radio" name="distance" value="furthest"> Furthest</label><br><br>
+          <label>
+            <input type="radio" name="date" value="recent" <%=currentFilters.date === 'recent' ? "checked" : undefined%>>
+            Most Recent
+          </label><br>
+          <label>
+            <input type="radio" name="date" value="oldest" <%=currentFilters.date === 'oldest' ? "checked" : undefined%>>
+            Oldest
+          </label><br>
+          <label>
+            <input type="radio" name="distance" value="closest"> <!-- TODO set current filter to checked when location set up -->
+            Closest
+          </label><br>
+          <label>
+            <input type="radio" name="distance" value="furthest"> <!-- TODO set current filter to checked when location set up -->
+            Furthest
+          </label><br><br>
           <input type="button" value="Clear" onclick="resetForm()">
         </div>
 
       <!-- Filter panel -->
         <div class="search-character">
-        <p>Search by characteristics:</p>
-        <label><input name="ident" value="ident" type="checkbox">Identified</label><br>
-        <label><input name="flower" value="flower" type="checkbox"> Flowers</label><br>
-        <label><input name="leaf" value="leaf" type="checkbox"> Leaves</label><br>
-        <label><input name="seeds" value="seeds" type="checkbox"> Seeds</label><br>
-        <label><input name="fruit" value="fruit" type="checkbox"> Fruits</label><br><br>
+          <p>Search by characteristics:</p>
+          <label>
+            <input type="checkbox" name="ident" value="identified" <%=currentFilters.identified ? "checked" : undefined%>>
+             Identified</label><br>
+          <label>
+            <input type="checkbox" name="flower" value="flower" <%=currentFilters.flower ? "checked" : undefined%>>
+             Flowers
+          </label><br>
+          <label>
+            <input type="checkbox" name="leaf" value="leaf" <%=currentFilters.leaf ? "checked" : undefined%>>
+             Leaves
+          </label><br>
+          <label>
+            <input type="checkbox" name="seeds" value="seeds" <%=currentFilters.seeds ? "checked" : undefined%>>
+             Seeds
+          </label><br>
+          <label>
+            <input type="checkbox" name="fruit" value="fruit" <%=currentFilters.fruit ? "checked" : undefined%>>
+             Fruits
+          </label><br><br>
         </div>
-
 
         <div class="dropdown-sun">
           <label for="sunExposure">Sun Exposure:</label><br>
           <select id="sunExposure" name="sunExposure">
-            <option value="" selected disabled hidden>Select...</option>
-            <option value="full">Full Sun</option>
-            <option value="partial">Partial Sun</option>
-            <option value="shade">Shade</option>
+            <option value="" <%=currentFilters.sunExposure ? undefined : "selected" %> disabled hidden>
+              Select...
+            </option>
+            <option value="full" <%=currentFilters.sunExposure === "full" ? "selected" : undefined %>>
+              Full Sun
+            </option>
+            <option value="partial" <%=currentFilters.sunExposure === "partial" ? "selected" : undefined %>>
+              Partial Sun
+            </option>
+            <option value="shade" <%=currentFilters.sunExposure === "shade" ? "selected" : undefined %>>
+              Shade
+            </option>
           </select><br><br>
         </div>
 
-        <div class="dropdown-colour">
-          <label for="colour">Colour:</label><br>
-          <select id="colour" name="colour" >
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="yellow">Yellow</option>
-          </select><br>
+        <div class="filter-colour">
+          <label for="shouldFilterColour">Filter by colour?</label>
+          <input type="checkbox" id="shouldFilterColour" name="shouldFilterColour"
+             <%=currentFilters.shouldFilterColour === "on" ? "checked" : undefined%>
+          ><br>
+
+          <label for="colour">Colour to filter by:</label><br>
+          <input type="color" id="colour" name="colour"
+              <%=currentFilters.colour ? "value="+currentFilters.colour : undefined%>
+          ><br>
+
+          <label for="colourRange">Range of colour to include in filter:</label><br>
+          <input type="range" id="colourRange" name="colourRange" min="10" max="100"
+              <%=currentFilters.colourRange ? "value="+currentFilters.colourRange : undefined%>
+          ><br>
         </div>
 
         <br><br>
@@ -72,7 +112,7 @@
 
   <main>
     <h1>Posts</h1>
-  <% if (plants != null) { %>
+    <% if (plants != null) { %>
       <div class="posts-grid">
         <% for (plant of plants) { %>
           <div class="post">
@@ -80,7 +120,7 @@
 
             <h3><%=plant.name%></h3>
 
-            <a href="/plant/<%= plant._id %>">More Details</a> <!-- TODO set link routing to plant's page -->
+            <a href="/plant/<%= plant._id %>">More Details</a>
 
             <% let date = new Date(plant.date) %>
             <p><%="(location TODO) " + date.toLocaleString()%></p> <!-- TODO add location when added to db -->
