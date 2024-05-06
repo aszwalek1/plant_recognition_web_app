@@ -14,13 +14,11 @@ router.get('/', function (req, res, next) {
 
 router.post('/', async function(req, res, next) {
     try {
-        // Call the filterPlants function in the controller
-        const filteredPlants = await plantsController.filterPlants(req.body);
+        const filters = req.body;
+        const filteredPlants = await plantsController.filterPlants(filters);
 
-        // Render the view with the filtered plants
-        res.render('index', { title: 'Plant Recognition', plants: filteredPlants });
+        res.render('index', { title: 'Plant Recognition', plants: filteredPlants, currentFilters: filters });
     } catch (error) {
-        // Handle errors
         next(error);
     }
 });
