@@ -17,6 +17,7 @@
             <input type="text" id="description" name="description" required><br>
 
             <label for="location">Location: *</label><br>
+            <div id="map" class="map"></div>
             <input type="text" id="location" name="location" required><br>
 
             <label for="username">Your Nickname: *</label><br>
@@ -66,6 +67,10 @@
     </div>
 </div>
 <script src="/javascripts/preview.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNH-iyyOJWzqylnotWOznD9Mjt9605G2c&callback=initMap&v=beta"
+        defer></script>
+<script src="/javascripts/location.js"></script>
+
 </body>
 
 <%- include('common/footer'); -%>

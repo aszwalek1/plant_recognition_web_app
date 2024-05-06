@@ -48,7 +48,7 @@ a {
 }
 
 .create-preview{
-  width: 60%;
+  width: 40%;
   margin-bottom: 2%;
 }
 
@@ -58,7 +58,7 @@ a {
 }
 
 .image-preview {
-  width: 40%;
+  width: 80%;
   height: auto;
 }
 
@@ -101,4 +101,17 @@ a {
 .chat{
   width: 30%;
   height: auto;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border: 1px solid black; /* Optional border */
+  vertical-align: middle;
+}
+
+.map {
+  height:200px;
+  width:auto;
 }
