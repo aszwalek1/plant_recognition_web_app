@@ -22,7 +22,12 @@
             <label for="username">Your Nickname: *</label><br>
             <input type="text" id="username" name="username" required><br>
 
-            <label>Characteristics:</label><br>
+            <label>Characteristics</label><br>
+            <label for="height">Height (cm)</label><br>
+            <input type="number" min="0" step="0.1" id="height" name="height"><br>
+            <label for="spread">Spread (cm)</label><br>
+            <input type="number" min="0" step="0.1" id="spread" name="spread"><br>
+
             <input type="checkbox" id="fruit" name="characteristics" value="fruit">
             <label for="fruit">Fruit</label><br>
             <input type="checkbox" id="seeds" name="characteristics" value="seeds">
@@ -33,12 +38,7 @@
             <label for="flowers">Flowers</label><br>
 
             <label for="colour">Colour:</label><br>
-            <select id="colour" name="colour" >
-                <option value="red">Red</option>
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-                <option value="yellow">Yellow</option>
-            </select><br>
+            <input type="color" id="colour" name="colour"><br>
 
             <label for="sunExposure">Sun Exposure:</label><br>
             <select id="sunExposure" name="sunExposure">
@@ -69,4 +69,3 @@
 </body>
 
 <%- include('common/footer'); -%>
-

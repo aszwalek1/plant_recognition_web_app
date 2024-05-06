@@ -1,4 +1,5 @@
 const Plant = require('../models/plant')
+let colourStringToNums = require("../utils").colourStringToNums;
 
 /**
  * Creates a plant document in the database.
@@ -7,15 +8,16 @@ const Plant = require('../models/plant')
  * @returns {Promise<string>} result of saving plant in db, either plant as string or null if error
  */
 function create(plantData, imagePath) {
+
     let characteristics = {
-        hasFlowers: plantData.characteristics.includes('flowers'),
-        hasLeaves: plantData.characteristics.includes('leaves'),
-        hasFruit: plantData.characteristics.includes('fruit'),
-        hasSeeds: plantData.characteristics.includes('seeds'),
+        hasFlowers: plantData.characteristics !== undefined && plantData.characteristics.includes('flowers'),
+        hasLeaves: plantData.characteristics !== undefined && plantData.characteristics.includes('leaves'),
+        hasFruit: plantData.characteristics !== undefined && plantData.characteristics.includes('fruit'),
+        hasSeeds: plantData.characteristics !== undefined && plantData.characteristics.includes('seeds'),
         sunExposure: plantData.sunExposure,
-        // height: TODO add height to create form
-        // spread: TODO add spread to create form
-        // colour: TODO change colour in create form to colour picker
+        height: plantData.height,
+        spread: plantData.spread,
+        colour: plantData.colour
     }
 
     if (imagePath.startsWith("public\\")) {
@@ -87,45 +89,79 @@ function getAll() {
     return result
 }
 
-exports.filterPlants = async function(formData) {
+exports.filterPlants = async function(filterFormData) {
     try {
         let filteredPlants;
 
-        // Logic to filter plants based on the selected date option
-        if (formData.date === 'recent') {
-            // Sort by most recent
+        const colourFilterRange = Number(filterFormData.colourRange)
+        const [redFilter, greenFilter, blueFilter] = colourStringToNums(filterFormData.colour)
+        const RGB_MIN = 0;
+        const RGB_MAX = 255;
+        const [
+            [redFilterMin, redFilterMax],
+            [greenFilterMin, greenFilterMax],
+            [blueFilterMin, blueFilterMax]
+        ] = [
+            [Math.max(redFilter - colourFilterRange, RGB_MIN), Math.min(redFilter + colourFilterRange, RGB_MAX)],
+            [Math.max(greenFilter - colourFilterRange, RGB_MIN), Math.min(greenFilter + colourFilterRange, RGB_MAX)],
+            [Math.max(blueFilter - colourFilterRange, RGB_MIN), Math.min(blueFilter + colourFilterRange, RGB_MAX)],
+        ]
+
+        if (filterFormData.date === 'recent') {
             filteredPlants = await Plant.find().sort({ date: -1 }); // Sort by descending order of date
-        } else if (formData.date === 'oldest') {
-            // Sort by oldest
+        } else if (filterFormData.date === 'oldest') {
             filteredPlants = await Plant.find().sort({ date: 1 }); // Sort by ascending order of date
         } else {
-            // No date filter applied, return all plants
             filteredPlants = await Plant.find();
         }
 
-        if (formData.ident || formData.flower || formData.leaf || formData.seeds || formData.fruit) {
+        if (filterFormData.identified) {
             filteredPlants = filteredPlants.filter(plant => {
-                // Filter plants that match any selected characteristic
+                return plant.nameStatus === "Completed"
+            })
+        }
+
+        if (filterFormData.flower) {
+            filteredPlants = filteredPlants.filter(plant => {
+                return plant.characteristics.hasFlowers
+            })
+        }
+
+        if (filterFormData.leaf) {
+            filteredPlants = filteredPlants.filter(plant => {
+                return plant.characteristics.hasLeaves
+            })
+        }
+
+        if (filterFormData.seeds) {
+            filteredPlants = filteredPlants.filter(plant => {
+                return plant.characteristics.hasSeeds
+            })
+        }
+
+        if (filterFormData.fruit) {
+            filteredPlants = filteredPlants.filter(plant => {
+                return plant.characteristics.hasFruit
+            })
+        }
+
+        if (filterFormData.sunExposure) {
+            filteredPlants = filteredPlants.filter(plant => {
+                return plant.characteristics.sunExposure === filterFormData.sunExposure;
+            });
+        }
+
+        if (filterFormData.shouldFilterColour === "on") {
+            filteredPlants = filteredPlants.filter(plant => {
+                const [plantRed, plantGreen, plantBlue] = plant.characteristics.colourNums
+
                 return (
-                    (formData.ident && plant.nameStatus === "Completed") ||
-                    (formData.flower && plant.characteristics.hasFlowers === true) ||
-                    (formData.leaf && plant.characteristics.hasLeaves === true) ||
-                    (formData.seeds && plant.characteristics.hasSeeds === true) ||
-                    (formData.fruit && plant.characteristics.hasFruit === true)
-                );
-            });
+                    (plantRed >= redFilterMin && plantRed <= redFilterMax) &&
+                    (plantGreen >= greenFilterMin && plantGreen <= greenFilterMax) &&
+                    (plantBlue >= blueFilterMin && plantBlue <= blueFilterMax)
+                )
+            })
         }
-
-        if (formData.sunExposure) {
-            console.log("Filtering by Sun Exposure:", formData.sunExposure);
-            filteredPlants = filteredPlants.filter(plant => {
-                // Filter plants that match the selected sun exposure
-                console.log("Plant Sun Exposure:", plant.characteristics.sunExposure);
-                return plant.characteristics.sunExposure === formData.sunExposure;
-            });
-        }
-
-
 
         return filteredPlants;
 
