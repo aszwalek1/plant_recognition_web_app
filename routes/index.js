@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 
     plantsPromise.then(plantsStr => {
         let plants = JSON.parse(plantsStr)
-        res.render('index', {title: 'Plant Recognition', plants: plants})
+        res.render('index', {title: 'Plant Recognition', plants: plants, currentFilters: {}})
     })
 });
 
