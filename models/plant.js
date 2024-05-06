@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+let colourStringToNums = require("../utils").colourStringToNums;
 
 let Schema = mongoose.Schema;
 
@@ -35,11 +36,7 @@ plantSchema.virtual('characteristics.colourNums').get( function() {
     if (colour === undefined) {
         return undefined
     } else {
-        return [
-            Number("0x" + colour.substring(1, 3)), // red,
-            Number("0x" + colour.substring(3, 5)), // green,
-            Number("0x" + colour.substring(5, 7)) // blue
-        ]
+        return colourStringToNums(colour)
     }
 })
 
