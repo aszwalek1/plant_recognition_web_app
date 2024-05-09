@@ -9,13 +9,11 @@ self.addEventListener('install', (event) => {
             const cache = await caches.open("static");
             cache.addAll([
                 '/',
+                '/index.js',
                 '/create',
-                // '/manifest.json',
-                // '/javascripts/insert.js',
-                // '/javascripts/index.js',
-                // '/javascripts/idb-utility.js',
-                '/stylesheets/style.css'
-                // '/images/image_icon.png',
+                '/stylesheets/style.css',
+                '/stylesheets/media.css',
+                '/javascripts/preview.js'
             ]);
             console.log('Service Worker: App Shell Cached');
         }
