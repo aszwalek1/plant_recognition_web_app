@@ -34,7 +34,6 @@
                 <p>This plant has seeds</p>
             <% } %>
             <p><%= "Sun Exposure: " + plant.characteristics.sunExposure %></p>
-
         </div>
         <p><%= "Spotted in " + " TODO " %></p> <!--// TODO location-->
         <p><%= "Submitted by " + plant.username %></p>
@@ -45,6 +44,13 @@
                 <button>Update Plant</button>
             </a>
         <% } %>
+
+        <% if (plantLinkedData && plantLinkedData.wikiID) { %>
+            <a href="<%="https://en.wikipedia.org/?curid="+plantLinkedData.wikiID%>">Wikipedia Page</a>
+        <% } else { %>
+            <p><%="Could not find linked data on dbpedia for this resource"%></p>
+        <% } %>
+
     </div>
 
 
