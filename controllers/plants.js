@@ -37,18 +37,14 @@ function create(plantData, imagePath) {
         }
     )
 
-    let result = plant.save().then(
-        plant => {
+    return plant.save()
+        .then(plant => {
             return JSON.stringify(plant)
-        }
-    ).catch(
-        err => {
+        })
+        .catch(err => {
             console.log(err)
             return null
-        }
-    )
-
-    return result
+        })
 }
 
 /**
@@ -57,26 +53,23 @@ function create(plantData, imagePath) {
  * @returns {Promise<string>} a promise, either plant as string or null if error
  * */
 function get(id) {
-    let result = Plant.findById(id).then(
+    return Plant.findById(id)
+        .then(
         plant => {
             return JSON.stringify(plant)
-        }
-    ).catch(
-        err => {
+        })
+        .catch(err => {
             console.log(err)
             return null
-        }
-    )
-
-    return result
+        })
 }
 
 /**
  * Gets all the plant documents in the database.
- * @returns {Promise<list<string>>} all the plants in db as JSON strings, or null if error occurred
+ * @returns {Promise<string>} all the plants in db as JSON strings, or null if error occurred
  * */
 function getAll() {
-    let result = Plant.find({}).then(
+    return Plant.find({}).then(
         plants => {
             return JSON.stringify(plants)
         }
@@ -86,8 +79,6 @@ function getAll() {
             return null
         }
     )
-
-    return result
 }
 
 function sortPlantsByDistance(userLocation, plants, sorttype) {
