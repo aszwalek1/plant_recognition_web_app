@@ -22,6 +22,7 @@ router.get('/', function(req, res, next) {
     res.render('create', { title: 'Create Post' });
 });
 
+
 // POST request handler for form submission
 router.post('/', upload.single('myImg'), function (req, res, next) {
     let userData = req.body;

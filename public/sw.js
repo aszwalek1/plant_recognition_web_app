@@ -1,4 +1,4 @@
-console.log('Service Worker Called...');
+importScripts('/idb-utility.js');
 
 self.addEventListener('install', (event) => {
     console.log('[Service Worker] : Installed');
@@ -8,17 +8,18 @@ self.addEventListener('install', (event) => {
         try {
             const cache = await caches.open("static");
             cache.addAll([
-                '/',
                 '/index.js',
-                '/create',
+                '/create/',
+                'idb-utility.js',
                 '/stylesheets/style.css',
                 '/stylesheets/media.css',
-                '/javascripts/preview.js'
+                '/javascripts/preview.js',
+
             ]);
             console.log('Service Worker: App Shell Cached');
         }
         catch{
-            console.log("error occured while caching...")
+            console.log("error occurred while caching...")
         }
 
     })());
@@ -52,11 +53,39 @@ self.addEventListener('fetch', event => {
     })());
 });
 
-// self.addEventListener('sync', event => {
-//     if(event.tag === 'sync-create') {
-//         console.log('Syncing Created Post');
-//         openSyncPostsDB().then((syncPostDB) => {
-//             getAllSyncPosts(syncPostDB).then((syncPosts))
-//         })
-//     }
-// });
+self.addEventListener('sync', event => {
+    if (event.tag === 'sync-post') {
+        console.log('Service Worker: Syncing new Posts');
+        openSyncPostsIDB().then((syncPostDB) => {
+            getAllSyncPosts(syncPostDB).then((syncPosts) => {
+                for (const syncPost of syncPosts) {
+                    console.log('Service Worker: Syncing new Todo: ', syncPost);
+                    console.log(syncPost.text);
+                    // Create a FormData object
+                    const formData = new URLSearchParams();
+
+                    // Iterate over the properties of the JSON object and append them to FormData
+                    formData.append("text", syncPost.text);
+
+                    // Fetch with FormData instead of JSON
+                    fetch('http://localhost:3000/create', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                    }).then(() => {
+                        console.log('Service Worker: Syncing new Post: ', syncPost, ' done');
+                        deleteSyncPostFromIDB(syncPostDB, syncPost.id);
+                        // Send a notification
+                        self.registration.showNotification('Post Synced', {
+                            body: 'Post synced successfully!',
+                        });
+                    }).catch((err) => {
+                        console.error('Service Worker: Syncing new Post: ', syncPost, ' failed');
+                    });
+                }
+            });
+        });
+    }
+});
