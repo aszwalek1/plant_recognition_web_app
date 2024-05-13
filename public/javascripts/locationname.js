@@ -5,7 +5,7 @@ const locationString = document.getElementById("location");
 const [latitude, longitude] = locationString.value.split(',').map(parseFloat);
 
 
-fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCNH-iyyOJWzqylnotWOznD9Mjt9605G2c
+fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDViXsX4aGMzQA-2X5J9gj8Gt_LD__RcVU
 `)
     .then(response => response.json())
     .then(data => {

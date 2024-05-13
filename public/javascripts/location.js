@@ -1,5 +1,6 @@
 
 async function initMap() {
+    console.log("Initializing map...");
     // Request needed libraries.
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
@@ -31,6 +32,6 @@ async function initMap() {
     });
 }
 
-initMap();
+initMap()
 
 
