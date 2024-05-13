@@ -1,7 +1,7 @@
 # intelligent_web
 COM3504 The Intelligent Web Group Assignment 2024
 
-API KEY: AIzaSyCNH-iyyOJWzqylnotWOznD9Mjt9605G2c
+API KEY: AIzaSyDViXsX4aGMzQA-2X5J9gj8Gt_LD__RcVU
 
 npm install geolocation
 
