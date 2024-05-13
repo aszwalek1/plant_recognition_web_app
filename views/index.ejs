@@ -103,7 +103,7 @@
         <br><br>
         <div class="form-buttons">
         <input type="submit" value="Search" class="search-btn">
-        <input type="submit" value="Reset" class="reset-btn" onclick="resetForm()">
+          <input type="submit" value="Reset" class="reset-btn" onclick="resetFilters()">
         </div>
       </form>
     </div>
@@ -122,8 +122,12 @@
 
             <a href="/plant/<%= plant._id %>">More Details</a>
 
+            <label for="location_<%= plant._id %>"></label>
+            <input id="location_<%= plant._id %>" hidden="hidden" value="<%= plant.location %>">
+            <p id="plant-location_<%= plant._id %>"></p>
+
             <% let date = new Date(plant.date) %>
-            <p><%="(location TODO) " + date.toLocaleString()%></p> <!-- TODO add location when added to db -->
+            <p><%=date.toLocaleString()%></p>
 
             <p><%="Status: " + plant.nameStatus%></p>
 
@@ -133,6 +137,7 @@
     <% } %>
   </main>
 <script src="/javascripts/filter.js"></script>
+<script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>
 </body>
 
 <%- include('common/footer'); -%>

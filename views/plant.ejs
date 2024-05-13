@@ -18,37 +18,42 @@
         <button>Hide Details</button>
     </div>
 
-    <div class="plant-description" id="plantDescription">
-        <p><%="Plant Description: " + plant.description%></p>
-        <div id="plantCharacteristics">
-            <% if (plant.characteristics.hasFlowers) { %>
-                <p>This plant has flowers</p>
+        <div class="plant-description" id="plantDescription">
+            <p><%="Plant Description: " + plant.description%></p>
+            <div id="plantCharacteristics">
+                <% if (plant.characteristics.hasFlowers) { %>
+                    <p>This plant has flowers</p>
+                <% } %>
+                <% if (plant.characteristics.hasLeaves) { %>
+                    <p>This plant has leaves</p>
+                <% } %>
+                <% if (plant.characteristics.hasFruit) { %>
+                    <p>This plant has fruit</p>
+                <% } %>
+                <% if (plant.characteristics.hasSeeds) { %>
+                    <p>This plant has seeds</p>
+                <% } %>
+                <p><%= "Sun Exposure: " + plant.characteristics.sunExposure%></p>
+                <p><%= "Height: " + plant.characteristics.height + "cm"%></p>
+                <p><%= "Spread: " + plant.characteristics.spread + "cm"%></p>
+            </div>
+            <span>Colour: </span>
+            <div class="color-swatch" style="background-color: <%= plant.characteristics.colour %>;"></div>
+            <p>Spotted: </p>
+            <label for="location"></label>
+            <input id="location" hidden="hidden" value="<%=plant.location%>">
+            <p id="plant-location"></p>
+            <p><%= "Date of Sighting: " + plantDate.toLocaleString() %> </p>
+            <p><%= "Submitted by " + plant.username %></p>
+            <p><%= "Status: " + plant.nameStatus%></p>
+            <% if (plant.nameStatus !== 'Completed') { %>
+                <a href="/update/<%= plant._id %>">
+                    <button>Update Plant</button>
+                </a>
             <% } %>
-            <% if (plant.characteristics.hasLeaves) { %>
-                <p>This plant has leaves</p>
-            <% } %>
-            <% if (plant.characteristics.hasFruit) { %>
-                <p>This plant has fruit</p>
-            <% } %>
-            <% if (plant.characteristics.hasSeeds) { %>
-                <p>This plant has seeds</p>
-            <% } %>
-            <p><%= "Sun Exposure: " + plant.characteristics.sunExposure %></p>
-
         </div>
-        <p><%= "Spotted in " + " TODO " %></p> <!--// TODO location-->
-        <p><%= "Submitted by " + plant.username %></p>
-        <p><%= "Date of Sighting: " + plantDate.toLocaleString() %> </p>
-        <p><%= "Status: " + plant.nameStatus%></p>
-        <% if (plant.nameStatus !== 'Completed') { %>
-            <a href="/update/<%= plant._id %>">
-                <button>Update Plant</button>
-            </a>
-        <% } %>
-    </div>
 
-
-    <div class="chat">
+        <div class="chat">
     <h2>Live Chat</h2>
     <div id="joinChat">
         <form onsubmit="return false;">
@@ -70,7 +75,7 @@
     </div>
     </div>
     </div>
-
+    <script src="/javascripts/locationname.js"></script>
 </body>
 
 <%- include('common/footer'); -%>
