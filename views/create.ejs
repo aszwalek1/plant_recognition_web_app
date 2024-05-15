@@ -14,12 +14,12 @@
 <div class="create">
     <div class="create-form">
         <h2>Enter Details</h2>
-        <form action="/create" method="POST" enctype="multipart/form-data">
+        <form id="form" enctype="multipart/form-data">
             <label for="name">Plant Name: *</label><br>
             <input type="text" id="name" name="name" required><br>
 
             <label for="image">Upload Image: *</label><br>
-            <input type="file" id="image" name="myImg" accept="image/*" required><br>
+            <input type="file" id="image" name="image" accept="image/*" required><br>
 
             <label for="description">Description: *</label><br>
             <input type="text" id="description" name="description" required><br>
@@ -62,7 +62,7 @@
                 <option value="In-progress">In-progress</option>
             </select><br><br>
 
-            <input type="submit" value="Upload">
+            <input id="submit" type="submit" value="Upload">
         </form>
     </div>
     <div class="create-preview">
@@ -74,7 +74,8 @@
         </div>
     </div>
 </div>
-<script src="/javascripts/preview.js"></script>
+<script src="/javascripts/create.js"></script>
+<script src="/idb-utility.js"></script>
 </body>
 
 <%- include('common/footer'); -%>

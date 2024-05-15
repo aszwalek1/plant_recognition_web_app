@@ -1,3 +1,4 @@
+const form = document.getElementById("form");
 const nameInput = document.getElementById('name');
 const locationInput = document.getElementById('location');
 const imageInput = document.getElementById('image');
@@ -5,9 +6,34 @@ const previewImage = document.getElementById('previewImage');
 const previewName = document.getElementById('previewName');
 const previewLocation = document.getElementById('previewLocation');
 
+form.addEventListener('submit', submitForm);
 nameInput.addEventListener('input', updatePreview);
 locationInput.addEventListener('input', updatePreview);
 imageInput.addEventListener('change', updateImagePreview);
+
+/**
+ * Makes a POST request to '/create' with some form data
+ * @param formData the formData
+ * @return Promise<Response>
+ */
+async function postForm(formData) {
+    return fetch("http://localhost:3000/create/", {method: 'POST', body: formData})
+}
+
+function submitForm(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    postForm(formData)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(err => {
+        openSyncPostsIDB().then(idb => {
+            addPendingPost(idb, formData);
+        })
+    })
+}
 
 function updatePreview() {
     previewName.textContent = nameInput.value;
