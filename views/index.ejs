@@ -1,8 +1,9 @@
 <%- include('common/head'); -%>
+<script src="/javascripts/filter.js"></script>
 </head>
 
 
-<body>
+<body onload="updateUserLocation">
 <!-- MOBILE MENU  -->
 <div class="mobile-menu">
   <button id="burger-icon">&#9776;</button>
@@ -23,21 +24,22 @@
         <div class="radio-filter">
           <p>Sort by: </p>
           <label>
-            <input type="radio" name="date" value="recent" <%=currentFilters.date === 'recent' ? "checked" : undefined%>>
+            <input type="radio" name="sort" value="recent" <%=currentFilters.sort === 'recent' ? "checked" : undefined%>>
             Most Recent
           </label><br>
           <label>
-            <input type="radio" name="date" value="oldest" <%=currentFilters.date === 'oldest' ? "checked" : undefined%>>
+            <input type="radio" name="sort" value="oldest" <%=currentFilters.sort === 'oldest' ? "checked" : undefined%>>
             Oldest
           </label><br>
           <label>
-            <input type="radio" name="distance" value="closest"> <!-- TODO set current filter to checked when location set up -->
+            <input type="radio" name="sort" value="closest" <%=currentFilters.sort === 'closest' ? "checked" : undefined%>>
             Closest
           </label><br>
           <label>
-            <input type="radio" name="distance" value="furthest"> <!-- TODO set current filter to checked when location set up -->
+            <input type="radio" name="sort" value="furthest" <%=currentFilters.sort === 'furthest' ? "checked" : undefined%>>
             Furthest
           </label><br><br>
+          <input type="hidden" id="userLocation" name="userLocation" >
           <input type="button" value="Clear" onclick="resetForm()">
         </div>
 
@@ -130,14 +132,17 @@
             <p><%=date.toLocaleString()%></p>
 
             <p><%="Status: " + plant.nameStatus%></p>
+            <p id="distance_<%= plant._id %>"></p>
 
           </div>
         <% } %>
       </div>
     <% } %>
   </main>
-<script src="/javascripts/filter.js"></script>
 <script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>
+<script>
+  window.addEventListener('load', updateUserLocation);
+</script>
 </body>
 
 <%- include('common/footer'); -%>

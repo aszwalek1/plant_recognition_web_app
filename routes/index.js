@@ -16,7 +16,6 @@ router.post('/', async function(req, res, next) {
     try {
         const filters = req.body;
         const filteredPlants = await plantsController.filterPlants(filters);
-
         res.render('index', { title: 'Plant Recognition', plants: filteredPlants, currentFilters: filters });
     } catch (error) {
         next(error);

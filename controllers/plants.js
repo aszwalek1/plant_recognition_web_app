@@ -1,5 +1,6 @@
 const Plant = require('../models/plant')
 let colourStringToNums = require("../utils").colourStringToNums;
+const geolib = require('geolib');
 
 /**
  * Creates a plant document in the database.
@@ -32,7 +33,7 @@ function create(plantData, imagePath) {
             imagePath: imagePath,
             nameStatus: plantData.status,
             username: plantData.username,
-            location: plantData.location
+            location: plantData.location,
         }
     )
 
@@ -89,6 +90,24 @@ function getAll() {
     return result
 }
 
+function sortPlantsByDistance(userLocation, plants, sorttype) {
+    // Calculate distances for each plant
+    const plantDistances = plants.map(plant => {
+        // Assuming plant has a 'location' property with [latitude, longitude]
+        const distance = geolib.getDistance(userLocation, plant.location);
+        return { plant, distance };
+    });
+
+    if (sorttype === 'closest') {
+        plantDistances.sort((a, b) => a.distance - b.distance);
+    } else {
+        plantDistances.sort((a, b) => b.distance - a.distance);
+
+    }
+
+    return plantDistances.map(plant => plant.plant);
+}
+
 exports.filterPlants = async function(filterFormData) {
     try {
         let filteredPlants;
@@ -107,13 +126,20 @@ exports.filterPlants = async function(filterFormData) {
             [Math.max(blueFilter - colourFilterRange, RGB_MIN), Math.min(blueFilter + colourFilterRange, RGB_MAX)],
         ]
 
-        if (filterFormData.date === 'recent') {
+        if (filterFormData.sort === 'recent') {
             filteredPlants = await Plant.find().sort({ date: -1 }); // Sort by descending order of date
-        } else if (filterFormData.date === 'oldest') {
+        } else if (filterFormData.sort === 'oldest') {
             filteredPlants = await Plant.find().sort({ date: 1 }); // Sort by ascending order of date
-        } else {
+        } else if (filterFormData.sort === 'closest') {
+            filteredPlants = sortPlantsByDistance(filterFormData.userLocation, await Plant.find(),"closest");
+        } else if (filterFormData.sort === 'furthest') {
+            filteredPlants = sortPlantsByDistance(filterFormData.userLocation, await Plant.find(), "furthest");
+        }
+        else {
             filteredPlants = await Plant.find();
         }
+
+
 
         if (filterFormData.identified) {
             filteredPlants = filteredPlants.filter(plant => {
