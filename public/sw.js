@@ -3,28 +3,27 @@ importScripts('/idb-utility.js');
 self.addEventListener('install', (event) => {
     console.log('[Service Worker] : Installed');
     event.waitUntil((async () => {
-
         console.log('Service Worker: Caching App Shell at the moment......');
+
         try {
             const cache = await caches.open("static");
-            cache.addAll([
+            await cache.addAll([
                 '/',
-                '/index.js',
                 '/create/',
                 'idb-utility.js',
                 '/stylesheets/style.css',
                 '/stylesheets/media.css',
-                '/javascripts/preview.js',
-
+                '/javascripts/create.js',
             ]);
             console.log('Service Worker: App Shell Cached');
         }
-        catch{
+        catch {
             console.log("error occurred while caching...")
         }
 
     })());
 });
+
 self.addEventListener('activate', (event) => {
     console.log('[Service Worker] : Activated');
     event.waitUntil(
@@ -39,7 +38,6 @@ self.addEventListener('activate', (event) => {
         })()
     )
 });
-
 
 self.addEventListener('fetch', event => {
     event.respondWith((async () => {
@@ -60,7 +58,7 @@ self.addEventListener('fetch', event => {
 //         openSyncPostsIDB().then((syncPostDB) => {
 //             getAllSyncPosts(syncPostDB).then((syncPosts) => {
 //                 for (const syncPost of syncPosts) {
-//                     console.log('Service Worker: Syncing new Todo: ', syncPost);
+//                     console.log('Service Worker: Syncing new : ', syncPost);
 //                     console.log(syncPost.text);
 //                     // Create a FormData object
 //                     const formData = new URLSearchParams();
