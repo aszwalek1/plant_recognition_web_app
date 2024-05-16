@@ -56,7 +56,7 @@
     }
 
     .image-preview {
-        width: 75%;
+        width: 100%;
         height: auto;
     }
 
@@ -81,9 +81,30 @@
 
     .update-form {
         margin-top: 2%;
+        width: 100%;
     }
 
     .previewImage {
-        width: 150%;
+        width: 200%;
+    }
+
+    .post {
+        padding: 3%;
+    }
+
+    .image {
+        max-height: 400px;
+    }
+
+    .plant-description{
+        padding: 3%;
+    }
+
+    .create-form {
+        padding: 4%;
+    }
+
+    .update-form {
+        padding: 4%;
     }
 }

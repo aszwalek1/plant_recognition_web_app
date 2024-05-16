@@ -18,13 +18,18 @@ head {
   height: 5px;
 }
 
-button, input[type="button"], input[type="submit"], input[type="file"]{
-  color:#fed;
-  font: bold 84% 'trebuchet ms',helvetica,sans-serif;
-  background-color:#050;
-  border:1px solid;
+button, input[type="button"], input[type="submit"] {
+  color: #fed;
+  font: bold 84% 'trebuchet ms', helvetica, sans-serif;
+  background-color: #050;
+  border: 1px solid;
   border-color: #696 #363 #363 #696;
   border-radius: 12px;
+  font-size: large;
+}
+
+input[type="file"] {
+  font-size: small;
 }
 
 .header {
@@ -69,11 +74,16 @@ button, input[type="button"], input[type="submit"], input[type="file"]{
 .post {
   width: calc(30% - 10px);
   margin-bottom: 2%;
+  border: 1px solid;
+  border-color: #696 #363 #363 #696;
+  border-radius: 12px;
+  padding: 1%;
 }
 
 .image {
   width: 100%;
-  height: auto;
+  max-height: 300px;
+  border-radius: 12px;
 }
 
 .create {
@@ -96,11 +106,16 @@ button, input[type="button"], input[type="submit"], input[type="file"]{
 .create-form {
   width: 40%;
   margin-bottom: 2%;
+  border: 1px solid;
+  border-color: #696 #363 #363 #696;
+  border-radius: 12px;
+  padding: 1%;
 }
 
 .image-preview {
   width: 80%;
   height: auto;
+  border-radius: 12px;
 }
 
 
@@ -117,6 +132,10 @@ button, input[type="button"], input[type="submit"], input[type="file"]{
 .update-form {
   margin-top: 2%;
   width: 20%;
+  border: 1px solid;
+  border-color: #696 #363 #363 #696;
+  border-radius: 12px;
+  padding: 1%;
 }
 
 .update-preview {
@@ -131,16 +150,29 @@ button, input[type="button"], input[type="submit"], input[type="file"]{
 
 .img-view {
   width: 40%;
-  height: auto;
+  max-height: 500px;
+  border-radius: 12px;
+
 }
 
 .previewImage {
   width: 70%;
+  max-height: 450px;
+  border-radius: 12px;
+
+}
+
+.map {
+  border-radius: 12px;
 }
 
 .plant-description{
   width: 30%;
   height: auto;
+  border: 1px solid;
+  border-color: #696 #363 #363 #696;
+  border-radius: 12px;
+  padding: 1%;
 }
 
 .chat{
@@ -158,6 +190,6 @@ button, input[type="button"], input[type="submit"], input[type="file"]{
 }
 
 .map {
-  height:200px;
+  height:300px;
   width:auto;
 }

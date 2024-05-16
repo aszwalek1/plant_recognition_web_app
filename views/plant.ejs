@@ -57,7 +57,9 @@
                 <p>Linked Data From <a href="<%=plantLinkedData.dbpediaPage%>">DBpedia Page</a>:</p>
             <% } %>
             <% if (plantLinkedData.abstract) { %>
-                <p><%=plantLinkedData.abstract%></p>
+                    <% let abstract = plantLinkedData.abstract.trim(); %>
+                    <% let firstTwoSentences = abstract.split('.').slice(0, 2).join('.') + '.'; %>
+                    <p><%= firstTwoSentences %></p>
             <% } %>
             <% if (plantLinkedData.wikiID) { %>
                 <a href="<%="https://en.wikipedia.org/?curid="+plantLinkedData.wikiID%>">Wikipedia Page</a>
