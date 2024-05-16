@@ -1,33 +1,38 @@
+const dbpediaURL = 'http://dbpedia.org'
 const endpointURL = 'http://dbpedia.org/sparql'
 
 /**
  * Queries DBpedia resource of a plant with a given name for a Wikipedia page id.
  *
  * @param plantName the name of a plant in DBpedia
- * @returns {Promise<any>} Promise of object with wikiID property
+ * @returns {Promise<any>} Promise of object with dbpediaPage, abstract and wikiID properties
  */
 function queryPlant(plantName) {
-    // TODO? return Promise of object containing more than just wiki id
-    const resourceURI = `http://dbpedia.org/resource/${plantName}`
+    const resourceURI = `${dbpediaURL}/resource/${plantName}`
     const query = `
-        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbo: <${dbpediaURL}/ontology/>
         
-        SELECT ?wikiID
+        SELECT ?abstract ?wikiID
         WHERE {
-            <http://dbpedia.org/resource/${plantName}> dbo:wikiPageID ?wikiID .
+            <${resourceURI}> dbo:abstract ?abstract.
+            <${resourceURI}> dbo:wikiPageID ?wikiID .
+            FILTER (langMatches(lang(?abstract), "en")) .
         }
     `
     const queryEncoded = encodeURIComponent(query)
 
     const queryURL = `${endpointURL}?query=${queryEncoded}&format=json`
 
-    return fetch(queryURL)
-        .then(response => {
-            return response.json()
-                .then(responseJSON => {
-                    return {wikiID: responseJSON.results.bindings[0].wikiID.value}
-                })
-                .catch(handleError)
+    return fetch(queryURL).then(response => {
+        return response.json().then(responseJSON => {
+                const result = responseJSON.results.bindings[0]
+                return {
+                    dbpediaPage: `${dbpediaURL}/page/${plantName}`,
+                    abstract: result.abstract.value,
+                    wikiID: result.wikiID.value
+                }
+            })
+            .catch(handleError)
         })
         .catch(handleError)
 }
@@ -35,7 +40,7 @@ function queryPlant(plantName) {
 /**
  * Logs a given error to console and returns undefined.
  *
- * @param err
+ * @param err the error
  * @return undefined
  */
 function handleError(err) {
