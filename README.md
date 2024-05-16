@@ -10,3 +10,6 @@ npm install geolib
 npm install @googlemaps/js-api-loader
 
 placeholder img ref: https://cityofmebanenc.gov/parks-facilities-trails/placeholder-image/
+
+(create post)
+if pin isn't moving refresh page
