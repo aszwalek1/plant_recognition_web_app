@@ -3,8 +3,8 @@
 
 <body>
 
-<div style="display: flex;">
-    <div style="flex: 1;">
+<div class="update-page">
+    <div class="update-form">
         <form action="/update/<%= plant._id %>" method="post">
             <label for="name">Plant Name: *</label><br>
             <input type="text" id="name" name="name" value="<%= plant.name %>" required><br><br>
@@ -21,10 +21,10 @@
             <input type="submit" value="Update">
         </form>
     </div>
-    <div style="flex: 1;">
+    <div class="update-preview">
         <h2>Preview</h2>
         <div class="preview">
-            <img id="previewImage" src="/<%= plant.imagePath %>" alt="Preview Image" style="max-width: 100%;">
+            <img class="previewImage" id="previewImage" src="/<%= plant.imagePath %>" alt="Preview Image">
             <p id="previewName"></p>
             <p id="previewLocation"></p>
         </div>

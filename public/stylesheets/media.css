@@ -8,8 +8,12 @@
 }
 
 @media screen and (max-width: 768px) {
+    .title-button {
+        display: inline;
+
+    }
     .home-button {
-        margin-left: 30%;
+        margin-left: 0%;
     }
 
     .filters {
@@ -69,5 +73,17 @@
     .chat{
         width: 90%;
         height: auto;
+    }
+
+    .update-page {
+        display: inline;
+    }
+
+    .update-form {
+        margin-top: 2%;
+    }
+
+    .previewImage {
+        width: 150%;
     }
 }
