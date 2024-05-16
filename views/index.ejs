@@ -9,7 +9,8 @@
   <button id="burger-icon">&#9776;</button>
   <div id="burger-content">
     <ul>
-
+      <li><button onclick="location.href='/'" class="head-button">Home</button></li>
+      <li><button onclick="location.href='/create/'">New Post</button></li>
     </ul>
   </div>
 </div>
@@ -18,7 +19,6 @@
 
 <!--  DESKTOP MENU  -->
 <!-- Sorting of posts -->
-    <button onclick="location.href='/create/'">New Post</button>
     <div class="filters">
       <form id="filterForm" action="/" method="post">
         <div class="radio-filter">
@@ -108,37 +108,37 @@
           <input type="submit" value="Reset" class="reset-btn" onclick="resetFilters()">
         </div>
       </form>
-    </div>
 
     <br><br>
 
-  <main>
-    <h1>Posts</h1>
-    <% if (plants != null) { %>
-      <div class="posts-grid">
-        <% for (plant of plants) { %>
-          <div class="post">
-            <img class="image" src="<%=plant.imagePath%>" alt="<%= plant.name%>"/>
+    <main>
+      <h2 class="posty">Posts</h2>
+      <% if (plants != null) { %>
+        <div class="posts-grid">
+          <% for (plant of plants) { %>
+            <div class="post">
+              <img class="image" src="<%=plant.imagePath%>" alt="<%= plant.name%>"/>
 
-            <h3><%=plant.name%></h3>
+              <h3><%=plant.name%></h3>
 
-            <a href="/plant/<%= plant._id %>">More Details</a>
+              <a href="/plant/<%= plant._id %>">More Details</a>
 
-            <label for="location_<%= plant._id %>"></label>
-            <input id="location_<%= plant._id %>" hidden="hidden" value="<%= plant.location %>">
-            <p id="plant-location_<%= plant._id %>"></p>
+              <label for="location_<%= plant._id %>"></label>
+              <input id="location_<%= plant._id %>" hidden="hidden" value="<%= plant.location %>">
+              <p id="plant-location_<%= plant._id %>"></p>
 
-            <% let date = new Date(plant.date) %>
-            <p><%=date.toLocaleString()%></p>
+              <% let date = new Date(plant.date) %>
+              <p><%=date.toLocaleString()%></p>
 
-            <p><%="Status: " + plant.nameStatus%></p>
-            <p id="distance_<%= plant._id %>"></p>
+              <p><%="Status: " + plant.nameStatus%></p>
+              <p id="distance_<%= plant._id %>"></p>
 
-          </div>
-        <% } %>
-      </div>
-    <% } %>
-  </main>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
+    </main>
+    </div>
 <script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>
 <script>
   window.addEventListener('load', updateUserLocation);

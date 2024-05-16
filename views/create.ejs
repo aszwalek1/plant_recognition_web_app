@@ -10,23 +10,22 @@
 </head>
 
 <body>
-<h2><%= title %></h2>
 <div class="create">
     <div class="create-form">
         <h2>Enter Details</h2>
         <form action="/create" method="POST" enctype="multipart/form-data">
             <label for="name">Plant Name: *</label><br>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" required><br><br>
 
             <label for="image">Upload Image: *</label><br>
             <input type="file" id="image" name="myImg" accept="image/*" required><br>
 
             <label for="description">Description: *</label><br>
-            <input type="text" id="description" name="description" required><br>
+            <input type="text" id="description" name="description" required><br><br>
 
-            <label for="location">Location: *</label><br>
-            <div id="map" class="map"></div>
-            <input type="text" id="location" name="location" required readonly><br>
+            <label for="location">Location: *(MOVE PIN TO SELECT LOCATION)</label><br>
+            <div id="map" class="map"></div><br>
+            <input type="text" id="location" name="location" required readonly><br><br>
 
             <label for="username">Your Nickname: *</label><br>
             <input type="text" id="username" name="username" required><br>
@@ -68,7 +67,7 @@
     <div class="create-preview">
         <h2>Preview</h2>
         <div id="preview">
-            <img class="image-preview" id="previewImage" src="#" alt="Preview Image">
+            <img class="image-preview" id="previewImage" src="/images/placeholder-image.png" alt="Preview Image">
             <p id="previewName"></p>
             <p id="previewLocation"></p>
         </div>

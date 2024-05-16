@@ -11,6 +11,13 @@ a {
   display: none;
 }
 
+head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 5px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -21,14 +28,33 @@ a {
   align-items: center;
 }
 
-.head-button {
-  margin-left: 90%;
+.home-button {
+  margin-left: 1000px;
+  padding-right: 10px;
 }
 
+.filters {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-filter,
+.search-character,
+.dropdown-sun,
+.dropdown-colour {
+  padding-top: 20px;
+  width: 100%;
+}
 .posts-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 40px;
+  width: 90%;
+}
+
+.posty {
+  padding-left: 40px;
 }
 
 .post {
@@ -47,9 +73,15 @@ a {
   justify-content: space-between;
 }
 
+.preview {
+  width: 70%;
+  height: auto;
+}
+
 .create-preview{
-  width: 40%;
+  width: 50%;
   margin-bottom: 2%;
+  margin-right: 20px;
 }
 
 .create-form {
@@ -62,21 +94,6 @@ a {
   height: auto;
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.radio-filter,
-.search-character,
-.dropdown-sun,
-.dropdown-colour {
-  display: inline-block; /* Set display to inline-block */
-  width: auto; /* Allow the width to adjust based on content */
-  margin-right: 50px; /* Add some spacing between the divs */
-}
 
 .form-buttons{
   margin-top: 5%;
