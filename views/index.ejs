@@ -112,32 +112,24 @@
 
   <main>
     <h1>Posts</h1>
-    <% if (plants != null) { %>
-      <div class="posts-grid">
-        <% for (plant of plants) { %>
-          <div class="post">
-            <img class="image" src="<%=plant.imagePath%>" alt="<%= plant.name%>"/>
-
-            <h3><%=plant.name%></h3>
-
-            <a href="/plant/<%= plant._id %>">More Details</a>
-
-            <label for="location_<%= plant._id %>"></label>
-            <input id="location_<%= plant._id %>" hidden="hidden" value="<%= plant.location %>">
-            <p id="plant-location_<%= plant._id %>"></p>
-
-            <% let date = new Date(plant.date) %>
-            <p><%=date.toLocaleString()%></p>
-
-            <p><%="Status: " + plant.nameStatus%></p>
-
+      <div id="posts-grid">
+          <div id="post-template" class="post" hidden>
+            <img class="image" src=""/>
+            <h3 class="name"></h3>
+            <a class="details">More Details</a>
+            <label for="location_"></label>
+            <input id="location_" hidden="hidden" value="">
+            <p id="plant-location_"></p>
+            <p class="date"></p>
+            <p class="status"></p>
           </div>
-        <% } %>
       </div>
-    <% } %>
   </main>
-<script src="/javascripts/filter.js"></script>
-<script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>
 </body>
+
+<script src="/idb-index.js"></script>
+<script src="/idb-utility.js"></script>
+<script src="/javascripts/filter.js"></script>
+<script src="/javascripts/locationname2.js"></script>
 
 <%- include('common/footer'); -%>
