@@ -91,21 +91,30 @@ function getAll() {
 }
 
 function sortPlantsByDistance(userLocation, plants, sorttype) {
+
+    let final;
+    let sorted;
+
     // Calculate distances for each plant
     const plantDistances = plants.map(plant => {
         // Assuming plant has a 'location' property with [latitude, longitude]
         const distance = geolib.getDistance(userLocation, plant.location);
+        console.log(distance);
+
         return { plant, distance };
     });
 
-    if (sorttype === 'closest') {
-        plantDistances.sort((a, b) => a.distance - b.distance);
-    } else {
-        plantDistances.sort((a, b) => b.distance - a.distance);
+    sorted = plantDistances.sort((a, b) => a.distance - b.distance);
 
+    if (sorttype === 'closest') {
+        final = sorted.map(plant => plant.plant);
+
+    } else {
+        final = sorted.map(plant => plant.plant).reverse();
     }
 
-    return plantDistances.map(plant => plant.plant);
+    return final;
+
 }
 
 exports.filterPlants = async function(filterFormData) {
