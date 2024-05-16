@@ -11,20 +11,11 @@ nameInput.addEventListener('input', updatePreview);
 locationInput.addEventListener('input', updatePreview);
 imageInput.addEventListener('change', updateImagePreview);
 
-/**
- * Makes a POST request to '/create' with some form data
- * @param formData the formData
- * @return Promise<Response>
- */
-async function postForm(formData) {
-    return fetch("http://localhost:3000/create/", {method: 'POST', body: formData})
-}
-
 function submitForm(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    postForm(formData)
+    postCreatePostForm(formData)
     .then(response => {
         console.log(response)
     })
