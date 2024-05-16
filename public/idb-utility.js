@@ -1,6 +1,6 @@
 /**
  * Adds a post to a 'sync-post' indexedDB of posts to that need to be synced. 
- * @param syncPostIDB the indexedDB
+ * @param syncPostIDB the 'sync-post' indexedDB
  * @param postData the post, as a FormData object
  */
 function addPendingPost(syncPostIDB, postData) {
@@ -8,12 +8,23 @@ function addPendingPost(syncPostIDB, postData) {
     const postStore = transaction.objectStore("sync-posts")
 
     let postDataObj = {}
-    for ([key, value] of postData) {
+    for (const [key, value] of postData) {
         postDataObj[key] = value
     }
 
-    postStore.add(postDataObj)
-    // TODO register sync
+    const addRequest = postStore.add(postDataObj)
+    addRequest.addEventListener("success", () => {
+        // make sure post is in sync posts idb before registering sync
+        const getRequest = postStore.get(addRequest.result)
+        getRequest.addEventListener("success", () => {
+            console.log("Successfully saved sync post: " + JSON.stringify(getRequest.result))
+            navigator.serviceWorker.ready.then((sw) => {
+                sw.sync.register("sync-post")
+            }).then(() => {
+                console.log("Sync registered");
+            })
+        })
+    })
 }
 
 /**
@@ -91,14 +102,29 @@ function getAllPosts(postIDB) {
     });
 }
 
-function getAllPendingPosts(syncPostIDB) {
+/**
+ * Gets all posts in a 'sync-post' indexedDB, i.e. all the posts that need to be synced.
+ * @param syncPostIDB the 'sync-post' indexedDB
+ * @return {Promise<[FormData]>}
+ */
+function getAllSyncPosts(syncPostIDB) {
     return new Promise((resolve, reject) => {
         const transaction = syncPostIDB.transaction(["sync-posts"]);
         const postStore = transaction.objectStore("sync-posts");
         const getAllRequest = postStore.getAll();
 
         getAllRequest.addEventListener("success", () => {
-            resolve(getAllRequest.result);
+            const postsObj = getAllRequest.result
+            let postsFormData = [];
+
+            for (const postObj of postsObj) {
+                let postFormData = new FormData()
+                for (const field in postObj) {
+                    postFormData.append(field, postObj[field])
+                }
+                postsFormData.push(postFormData)
+            }
+            resolve(postsFormData);
         });
 
         getAllRequest.addEventListener("error", (event) => {
@@ -107,17 +133,20 @@ function getAllPendingPosts(syncPostIDB) {
     });
 }
 
-
-function deleteSyncPostFromIDB(syncPostIDB, id) {
+/**
+ * Deletes a post with some key in a 'sync-post' indexedDB.
+ * @param syncPostIDB the 'sync-post' indexedDB
+ * @param key the key of the post in the idb
+ */
+function deleteSyncPost(syncPostIDB, key) {
     const transaction = syncPostIDB.transaction(["sync-posts"], "readwrite")
     const postStore = transaction.objectStore("sync-posts")
-    const deleteRequest = postStore.delete(id)
+    const deleteRequest = postStore.delete(key)
+
     deleteRequest.addEventListener("success", () => {
-        console.log("Deleted " + id)
+        console.log("Deleted sync post with id:" + key)
     })
 }
-
-
 
 function openSyncPostsIDB() {
     return new Promise((resolve, reject) => {
