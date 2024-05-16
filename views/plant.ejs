@@ -51,6 +51,21 @@
                     <button>Update Plant</button>
                 </a>
             <% } %>
+
+        <% if (plantLinkedData) { %>
+            <% if (plantLinkedData.dbpediaPage) { %>
+                <p>Linked Data From <a href="<%=plantLinkedData.dbpediaPage%>">DBpedia Page</a>:</p>
+            <% } %>
+            <% if (plantLinkedData.abstract) { %>
+                <p><%=plantLinkedData.abstract%></p>
+            <% } %>
+            <% if (plantLinkedData.wikiID) { %>
+                <a href="<%="https://en.wikipedia.org/?curid="+plantLinkedData.wikiID%>">Wikipedia Page</a>
+            <% } %>
+        <% } else { %>
+            <p><%="Could not find linked data on dbpedia for this resource"%></p>
+        <% } %>
+
         </div>
 
         <div class="chat">
