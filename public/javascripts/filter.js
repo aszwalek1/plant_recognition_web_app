@@ -1,3 +1,5 @@
+let plantDistances = [];
+
 function resetForm() {
     var radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(function(button) {
@@ -24,3 +26,19 @@ function resetFilters() {
     document.getElementById('filterForm').submit(); // Submit the form to apply the reset filters
 }
 
+// Get user's current location
+function updateUserLocation() {
+    navigator.geolocation.getCurrentPosition(
+        async position => {
+            const {latitude, longitude} = position.coords;
+            const userLocation = `${latitude},${longitude}`;
+            document.getElementById('userLocation').value = userLocation; // Update the hidden input field value
+
+        },
+        error => {
+            console.error('Error getting user location:', error);
+        }
+    );
+}
+
+window.addEventListener('load', updateUserLocation);
