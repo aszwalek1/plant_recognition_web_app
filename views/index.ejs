@@ -1,6 +1,4 @@
 <%- include('common/head'); -%>
-<script src="/javascripts/filter.js"></script>
-<script src="/javascripts/hide.js"></script>
 </head>
 
 
@@ -103,40 +101,25 @@
 
     <br><br>
 
-    <main>
-      <div id="post-grid">
-      <h2 class="posty">Posts</h2>
-      <% if (plants != null) { %>
-        <div class="posts-grid">
-          <% for (plant of plants) { %>
-            <div class="post">
-              <img class="image" src="<%=plant.imagePath%>" alt="<%= plant.name%>"/>
-
-              <h3><%=plant.name%></h3>
-
-              <a href="/plant/<%= plant._id %>">More Details</a>
-
-              <label for="location_<%= plant._id %>"></label>
-              <input id="location_<%= plant._id %>" hidden="hidden" value="<%= plant.location %>">
-              <p id="plant-location_<%= plant._id %>"></p>
-
-              <% let date = new Date(plant.date) %>
-              <p><%=date.toLocaleString()%></p>
-
-              <p><%="Status: " + plant.nameStatus%></p>
-              <p id="distance_<%= plant._id %>"></p>
-
-            </div>
-          <% } %>
-        </div>
-      <% } %>
+  <main>
+    <h1>Posts</h1>
+      <div id="posts-grid">
+          <div id="post-template" class="post" hidden>
+            <img class="image" src=""/>
+            <h3 class="name"></h3>
+            <a class="details">More Details</a>
+            <label for="location_"></label>
+            <input id="location_" hidden="hidden" value="">
+            <p id="plant-location_"></p>
+            <p class="date"></p>
+            <p class="status"></p>
+          </div>
       </div>
-    </main>
-    </div>
-<script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>
-<script>
-  window.addEventListener('load', updateUserLocation);
-</script>
+  </main>
 </body>
+
+<script src="/idb-index.js"></script>
+<script src="/idb-utility.js"></script>
+<script src="/javascripts/filter.js"></script>
 
 <%- include('common/footer'); -%>

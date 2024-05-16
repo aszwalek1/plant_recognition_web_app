@@ -28,16 +28,16 @@ function addPendingPost(syncPostIDB, postData) {
 }
 
 /**
- * Add a post to the 'post' indexedDB.
+ * Adding posts to the 'post' indexedDB.
  * @param postIDB the indexedDB
- * @param post the post
+ * @param posts the post
  */
-function addPost(postIDB, post) {
+function addPost(postIDB, posts) {
     return new Promise((resolve, reject) => {
-        const transaction = postIDB.transaction(["post"], "readwrite");
-        const postStore = transaction.objectStore("post");
+        const transaction = postIDB.transaction(["posts"], "readwrite");
+        const postStore = transaction.objectStore("posts");
 
-        const addPromises = post.map(post => {
+        const addPromises = posts.map(post => {
             return new Promise((resolveAdd, rejectAdd) => {
                 const addRequest = postStore.add(post);
                 addRequest.addEventListener("success", () => {
@@ -45,7 +45,6 @@ function addPost(postIDB, post) {
                     const getRequest = postStore.get(addRequest.result);
                     getRequest.addEventListener("success", () => {
                         console.log("Found " + JSON.stringify(getRequest.result));
-                        insertPostInList(getRequest.result);
                         resolveAdd();
                     });
                     getRequest.addEventListener("error", (event) => {
@@ -182,8 +181,8 @@ function openPostsIDB() {
         };
 
         request.onsuccess = function (event) {
-            postIDB = event.target.result;
-            resolve(postIDB);
+            const db = event.target.result;
+            resolve(db);
         };
     });
 }
