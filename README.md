@@ -13,7 +13,7 @@ npm install @googlemaps/js-api-loader
 API KEY: AIzaSyDViXsX4aGMzQA-2X5J9gj8Gt_LD__RcVU
 
 Online Functionalities :
-SEE Screenshots/online-functionality.mp4
+SEE /Screenshots/online-functionality.mp4
 
 Home Page:
 
