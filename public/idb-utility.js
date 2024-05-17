@@ -1,5 +1,5 @@
 /**
- * Register 'sync-posts' sync event with service worker
+ * Register 'sync-post' sync event with service worker.
  */
 function syncPosts() {
     navigator.serviceWorker.ready.then((sw) => {
@@ -62,7 +62,7 @@ function openPostsIDB() {
  * @param syncPostIDB the 'sync-post' indexedDB
  * @param postData the post, as a FormData object
  */
-function addPendingPost(syncPostIDB, postData) {
+function addSyncPost(syncPostIDB, postData) {
     const transaction = syncPostIDB.transaction(["sync-posts"], "readwrite")
     const postStore = transaction.objectStore("sync-posts")
 
@@ -123,6 +123,11 @@ function addPost(postIDB, posts) {
     });
 }
 
+/**
+ * Delete all posts in a 'posts' indexedDB.
+ * @param postIDB the 'posts' indexedDB
+ * @return {Promise<unknown>}
+ */
 function deleteAllExistingPostsFromIDB(postIDB) {
     const transaction = postIDB.transaction(["posts"], "readwrite");
     const postStore = transaction.objectStore("posts");
@@ -139,6 +144,11 @@ function deleteAllExistingPostsFromIDB(postIDB) {
     });
 }
 
+/**
+ * Get all posts in a 'posts' indexedDB.
+ * @param postIDB the 'posts' indexedDB
+ * @return {Promise<unknown>}
+ */
 function getAllPosts(postIDB) {
     return new Promise((resolve, reject) => {
         const transaction = postIDB.transaction(["posts"]);
@@ -201,20 +211,4 @@ function deleteSyncPost(syncPostIDB, key) {
     deleteRequest.addEventListener("success", () => {
         console.log("Deleted sync post with id:" + key)
     })
-}
-
-function addPostToIDB(plantData) {
-    return new Promise((resolve, reject) => {
-        const transaction = postIDB.transaction(["posts"], "readwrite");
-        const postStore = transaction.objectStore("posts");
-
-        const addRequest = postStore.add(plantData);
-        addRequest.addEventListener("success", () => {
-            console.log("Plant added to IndexedDB");
-            resolve();
-        });
-        addRequest.addEventListener("error", (event) => {
-            reject(event.target.error);
-        });
-    });
 }

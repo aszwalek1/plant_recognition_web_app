@@ -21,7 +21,7 @@ function submitForm(event) {
     })
     .catch(err => {
         openSyncPostsIDB().then(idb => {
-            addPendingPost(idb, formData);
+            addSyncPost(idb, formData);
         })
     })
 }

@@ -34,8 +34,7 @@ function connectToChat() {
     if (socket.connected) {
         socket.emit('join chat', plantID, username);
     } else {
-
-
+        // TODO
     }
 }
 
