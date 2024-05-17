@@ -21,12 +21,16 @@ Sort by closest to user location, furthest from user location, most recently add
 Filter by; identified plants, characteristics, sun exposure level and colour.
 Go to a plant page by clicking 'more details' on an individual plant.
 Add a new plant by clicking 'new post'.
+On screens less than 768px, there is the option to hide the filters, and posts are displayed below filters rather than to the side.
 
 New Post:
 
-Enter plant details in the form including; name, upload image, select location on the map using the pin, nickname, charaacteristics and status. Required fields have '*' notation. If the pin won't move, refresh the page. Colour is selected using a colour picker. 
+Enter plant details in the form including; name, upload image, select location on the map using the pin, nickname, characteristics and status. Required fields have a '*' notation. If the pin won't move, refresh the page. Colour is selected using a colour picker. 
+Preview of image and name is displayed.
 Upload plant to the database clicking 'upload', redirection to home page with the new plant added. 
 Return to home page by clicking 'home'.
+On screens less than 768px, the preview is displayed below filters rather than to the side.
+
 
 View Plant:
 
@@ -34,6 +38,8 @@ Displays the plant image with all details stored in the database for that plant.
 If plant status is 'in progress', update plant button available.
 If plant name is found in DBPedia, link to DBPedia and Wikipedia pages are shown and part of the abstract about that plant is displayed.
 Live chat function available for each plant.
+On screens less than 768px, details and live chat are displayed below the image rather than to the side and there is the option to hide the description.
+
 
 Update Plant:
 
