@@ -1,36 +1,56 @@
+let plantID = null;
 let username = null;
 let socket = io();
 
-document.getElementById('joinChat').style.display = 'block';
-document.getElementById('chatInterface').style.display = 'none';
-document.getElementById('connectToChat').addEventListener('click', connectToChat)
+window.onload = () => {
+    document.getElementById('joinChat').hidden = false;
+    document.getElementById('chatInterface').hidden = true;
 
-socket.on('joined', function(userId) {
-    if(userId === username) {
-        hideUsernameInput();
-    } else {
-        writeOnHistory('<b>' + userId + '</b>' + ' joined the chat ')
-    }
-});
-
-socket.on('chat', function(userId, chatText) {
-    let who = userId
-    if(userId === username) who = 'Me';
-    writeOnHistory('<br>' + who + ':</b> ' + chatText);
-});
-
-function sendMessage(plantId) {
-    let message = document.getElementById('chatInput').value;
-    if (message.length < 1) {
-        alert("Message cannot be empty!");
-        return;
-    }
-    socket.emit('chat', plantId, username, message);
+    plantID = document.getElementById("plant_id").textContent
+    document.getElementById('connectToChat').addEventListener('click', connectToChat)
+    document.getElementById('chatSend').addEventListener('click', sendMessage)
 }
+
+socket.on('joined chat', (roomID, userId) => {
+    if (roomID  === plantID) {
+        if (userId === username) {
+            hideUsernameInput();
+        } else {
+            writeOnHistory('<b>' + userId + '</b>' + ' joined the chat ')
+        }
+    }
+});
+
+socket.on('sent chat', (roomID, userID, chatText) => {
+    if (roomID === plantID) {
+        let who = userID
+        if (userID === username) who = 'Me';
+        writeOnHistory('<br>' + who + ':</b> ' + chatText);
+    }
+});
 
 function connectToChat() {
     username = document.getElementById('username').value;
-    socket.emit('join chat', username);
+    if (socket.connected) {
+        socket.emit('join chat', plantID, username);
+    } else {
+
+
+    }
+}
+
+function sendMessage() {
+    let message = document.getElementById('chatInput').value;
+    if (socket.connected) {
+        socket.emit('send chat', plantID, username, message);
+    } else {
+        // TODO
+    }
+}
+
+function hideUsernameInput() {
+    document.getElementById('joinChat').hidden = true;
+    document.getElementById('chatInterface').hidden = false;
 }
 
 function writeOnHistory(text) {
@@ -41,7 +61,4 @@ function writeOnHistory(text) {
     document.getElementById('chatInput').value = '';
 }
 
-function hideUsernameInput() {
-    document.getElementById('joinChat').style.display = 'none';
-    document.getElementById('chatInterface').style.display = 'block';
-}
+

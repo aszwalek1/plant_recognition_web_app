@@ -5,6 +5,7 @@
 
 <body>
     <h2><%= plant.name%></h2>
+    <p id="plant_id" hidden ><%=plant._id%></p>
     <% const plantDate = new Date(plant.date) %>
     <div class="desktop-datetime">
         <p id="dateTime"><%= plantDate.toDateString() %> </p>
@@ -74,14 +75,14 @@
             <button id="connectToChat" >Join chat</button>
         </form>
     </div>
-    <div id="chatInterface" style="display: none">
+    <div id="chatInterface" hidden>
         <div id="chatHistory"></div>
         <div id="sendMessage">
             <form onsubmit="return false;">
                 <p>
                     <label for="username">chat: </label>
                     <input type="text" id="chatInput" name="chat-input" placeholder="Your message...">
-                    <button id="chatSend" onclick="sendMessage('<%= plant._id %>')">Send</button>
+                    <button id="chatSend">Send</button>
                 </p>
             </form>
         </div>

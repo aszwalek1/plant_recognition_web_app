@@ -13,9 +13,9 @@ self.addEventListener('install', (event) => {
                 'fetch.js',
                 'idb-utility.js',
                 'idb-index.js',
-                'javascripts/chat_client.js',
                 '/stylesheets/style.css',
                 '/stylesheets/media.css',
+                'javascripts/chat_client.js',
                 '/javascripts/create.js',
                 '/javascripts/locationname2.js',
                 '/javascripts/filter.js'
