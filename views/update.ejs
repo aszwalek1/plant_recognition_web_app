@@ -10,11 +10,12 @@
             <input type="text" id="name" name="name" value="<%= plant.name %>" required><br><br>
 
             <label for="nickname">Nickname (Must Match Original): *</label><br>
-            <input type="text" id="nickname" name="nickname" value="<%= plant.username %>" required><br><br>
+            <input type="text" id="nickname" name="nickname" value="">
+            <input type="hidden" id="nn" name="nn" value="<%= plant.username %>" required><br><br>
 
             <label for="status">Status: *</label><br>
             <select id="status" name="nameStatus" required>
-                <option value="completed" <%= (plant.nameStatus === 'completed') ? 'selected' : '' %>>Completed</option>
+                <option value="Completed" <%= (plant.nameStatus === 'Completed') ? 'selected' : '' %>>Completed</option>
                 <option value="In-progress" <%= (plant.nameStatus === 'In-progress') ? 'selected' : '' %>>In-progress</option>
             </select><br><br>
 
