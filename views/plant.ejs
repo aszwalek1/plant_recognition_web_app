@@ -1,10 +1,9 @@
 <%- include('common/head'); -%>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src="/javascripts/chat_client.js"></script>
 </head>
 
 
-<body onload="init()">
+<body>
     <h2><%= plant.name%></h2>
     <% const plantDate = new Date(plant.date) %>
     <div class="desktop-datetime">
@@ -75,6 +74,7 @@
     </div>
     </div>
     </div>
+    <script src="/javascripts/chat_client.js"></script>
     <script src="/javascripts/locationname.js"></script>
 </body>
 
