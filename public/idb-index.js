@@ -78,6 +78,14 @@ window.onload = function () {
         await deleteAllExistingPostsFromIDB(db);
         await addPost(db, newPosts);
         console.log("All new posts added to IDB");
+        // cache images and details
+        const cache = await caches.open("static");
+        for (const post of newPosts) {
+            const imageResponse = await fetch(post.imagePath);
+            await cache.put(post.imagePath, imageResponse);
+            const detailResponse = await fetch(`/plant/${post._id}`);
+            await cache.put(`/plant/${post._id}`, detailResponse);
+        }
 
     }).catch(async function (err) {
         console.log("Page is offline");
