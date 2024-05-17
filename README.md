@@ -46,6 +46,10 @@ Update Plant:
 
 Plant image displayed, plant name and status can be edited, user nickname must be entered and match that of the original poster.
 
+Offline Functionality:
+
+
+
 References :
 
 placeholder img ref: https://cityofmebanenc.gov/parks-facilities-trails/placeholder-image/
