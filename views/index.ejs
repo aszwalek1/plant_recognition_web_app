@@ -1,5 +1,6 @@
 <%- include('common/head'); -%>
 <script src="/javascripts/filter.js"></script>
+<script src="/javascripts/hide.js"></script>
 </head>
 
 
@@ -7,9 +8,10 @@
 <br><br>
 <div class="mobile-hide-show-description-btn">
   <!-- TODO static js script to hide and show plantDescriptions div on mobile-->
-  <button>Hide Filters</button>
+  <button id="toggleFiltersBtn">Show Filters</button>
 </div>
-    <div class="filters">
+    <div class="filters" id="filters">
+      <div id="filters2">
       <form id="filterForm" action="/" method="post">
         <div class="radio-filter">
           <p>Sort by: </p>
@@ -98,10 +100,12 @@
           <input type="submit" value="Reset" class="reset-btn" onclick="resetFilters()">
         </div>
       </form>
+      </div>
 
     <br><br>
 
     <main>
+      <div id="post-grid">
       <h2 class="posty">Posts</h2>
       <% if (plants != null) { %>
         <div class="posts-grid">
@@ -127,6 +131,7 @@
           <% } %>
         </div>
       <% } %>
+      </div>
     </main>
     </div>
 <script src="/javascripts/locationname2.js?plant_id=<%= plant._id %>"></script>

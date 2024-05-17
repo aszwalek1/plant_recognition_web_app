@@ -18,6 +18,10 @@
 
     .filters {
         display: inline;
+    }
+
+    .filters2 {
+        display: none;
         justify-content: space-between;
     }
 
