@@ -24,6 +24,7 @@ Sort by closest to user location, furthest from user location, most recently add
 Filter by; identified plants, characteristics, sun exposure level and colour.
 Go to a plant page by clicking 'more details' on an individual plant.
 Add a new plant by clicking 'new post'.
+'Sync' button syncs plants added offline to mongoDB.
 On screens less than 768px, there is the option to hide the filters, and posts are displayed below filters rather than to the side.
 
 #### New Post:
@@ -46,11 +47,27 @@ On screens less than 768px, details and live chat are displayed below the image 
 
 #### Update Plant:
 
-Plant image displayed, plant name and status can be edited, user nickname must be entered and match that of the original poster.
+The plant image is displayed. The plant name and status can be edited. The user nickname must be entered and match that of the original poster.
 
 ### Offline:
+SEE /Screenshots/offline-functionality.mp4
 
+Users must have visited these pages online to be able to view and use them offline.
 
+#### Home Page:
+
+Displays posts with photos that have been uploaded online.
+Can access plant page by clicking on 'more details'.
+Can acces new post page by clicking on 'new post'.
+
+#### New Post:
+
+Can create multiple posts with images offline and store in indexedDB. 
+Can enter location coordinates.
+
+#### View Plant:
+
+Can view plant details as online.
 
 References :
 
