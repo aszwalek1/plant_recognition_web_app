@@ -25,16 +25,17 @@ function queryPlant(plantName) {
 
     return fetch(queryURL).then(response => {
         return response.json().then(responseJSON => {
-                const result = responseJSON.results.bindings[0]
-                return {
-                    dbpediaPage: `${dbpediaURL}/page/${plantName}`,
-                    abstract: result.abstract.value,
-                    wikiID: result.wikiID.value
-                }
-            })
-            .catch(handleError)
+            const result = responseJSON.results.bindings[0]
+            handleError("No results")
+            return {
+                dbpediaPage: `${dbpediaURL}/page/${plantName}`,
+                abstract: result.abstract.value,
+                wikiID: result.wikiID.value
+            }
         })
         .catch(handleError)
+    })
+    .catch(handleError)
 }
 
 /**
