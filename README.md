@@ -69,6 +69,10 @@ Can enter location coordinates.
 
 Can view plant details as online.
 
+## Contributions:
+
+![contributions](https://github.com/aszwalek1/intelligent_web/blob/main/Screenshot%202024-05-17%20143535.png)
+
 References :
 
 placeholder img ref: https://cityofmebanenc.gov/parks-facilities-trails/placeholder-image/
