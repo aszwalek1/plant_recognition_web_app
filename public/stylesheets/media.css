@@ -16,11 +16,11 @@
         margin-left: 0%;
     }
 
-    .filters {
+    #plantDescription{
         display: inline;
     }
 
-    .filters2 {
+    #filters2 {
         display: none;
         justify-content: space-between;
     }
