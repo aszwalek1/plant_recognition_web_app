@@ -1,5 +1,5 @@
 /**
- * createPosts copies a post template div and creates new posts in the posts-grid div on the index page
+ * displayPosts copies a post template div and creates new posts in the posts-grid div on the index page
  * It sets attributes of each post
  *
  * @param {IDBDatabase} db - The IndexedDB database object for managing posts.
@@ -8,7 +8,7 @@
  *
  */
 
-function createPosts(db, newPosts) {
+async function displayPosts(db, newPosts) {
     const postsList = document.getElementById("posts-grid")
     for(const plant of newPosts) {
         const copy = document.getElementById("post-template").cloneNode(true);
@@ -17,8 +17,7 @@ function createPosts(db, newPosts) {
         copy.querySelector(".image").src = plant.imagePath;
         copy.querySelector(".name").textContent = plant.name;
         copy.querySelector(".details").href = `/plant/${plant._id}`;
-        copy.querySelector("#location_").value = plant.location;
-        copy.querySelector("#plant-location_").textContent = plant.location;
+        copy.querySelector("#plant-location_").textContent = await getFormattedAddress(plant.location)
 
         let date = new Date(plant.date)
         copy.querySelector(".date").textContent = date.toLocaleString()
@@ -71,7 +70,7 @@ window.onload = function () {
             return res.json();
         }).then(async function (newPosts) {
         const db = await openPostsIDB();
-        createPosts(db, newPosts);
+        await displayPosts(db, newPosts);
         await deleteAllExistingPostsFromIDB(db);
         await addPost(db, newPosts);
         console.log("All new posts added to IDB");
@@ -88,7 +87,7 @@ window.onload = function () {
         console.log("Page is offline");
         const db = await openPostsIDB();
         const posts = await getAllPosts(db);
-        createPosts(db, posts);
+        await displayPosts(db, posts);
     });
 
 }

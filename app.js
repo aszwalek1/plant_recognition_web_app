@@ -3,7 +3,6 @@ var path = require('path');
 var createError = require('http-errors');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
 var indexRouter = require('./routes/index');
 var plantRouter = require('./routes/plant');
 var createRouter = require('./routes/create');
@@ -17,7 +16,6 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
