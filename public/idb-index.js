@@ -59,9 +59,6 @@ window.onload = function () {
                         .then(function (serviceWorkerRegistration) {
                             serviceWorkerRegistration.showNotification("Post App",
                                 {body: "Notifications are enabled!"})
-                                .then(r =>
-                                    console.log(r)
-                                );
                         });
                 }
             });
