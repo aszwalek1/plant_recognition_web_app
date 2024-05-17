@@ -1,5 +1,15 @@
+
+
+function syncPosts() {
+    navigator.serviceWorker.ready.then((sw) => {
+        sw.sync.register("sync-post")
+    }).then(() => {
+        console.log("Sync registered");
+    })
+}
+
 /**
- * Adds a post to a 'sync-post' indexedDB of posts to that need to be synced. 
+ * Adds a post to a 'sync-post' indexedDB of posts to that need to be synced.
  * @param syncPostIDB the 'sync-post' indexedDB
  * @param postData the post, as a FormData object
  */
@@ -18,13 +28,11 @@ function addPendingPost(syncPostIDB, postData) {
         const getRequest = postStore.get(addRequest.result)
         getRequest.addEventListener("success", () => {
             console.log("Successfully saved sync post: " + JSON.stringify(getRequest.result))
-            navigator.serviceWorker.ready.then((sw) => {
-                sw.sync.register("sync-post")
-            }).then(() => {
-                console.log("Sync registered");
-            })
         })
-    })
+        getRequest.addEventListener("error", () => {
+            console.error("Error saving sync post");
+        });
+    });
 }
 
 /**
