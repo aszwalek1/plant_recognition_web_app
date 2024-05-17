@@ -1,8 +1,15 @@
-
+/**
+ * createPosts copies a post template div and creates new posts in the posts-grid div on the index page
+ * It sets attributes of each post
+ *
+ * @param {IDBDatabase} db - The IndexedDB database object for managing posts.
+ * @param {Array} newPosts - An array of objects representing new posts to be displayed.
+ * Each object should contain properties such as imagePath, name, _id, location, date, and nameStatus.
+ *
+ */
 
 function createPosts(db, newPosts) {
     const postsList = document.getElementById("posts-grid")
-    // for (const postListElem of Array.from(postsList)) {
     for(const plant of newPosts) {
         const copy = document.getElementById("post-template").cloneNode(true);
         copy.hidden = false;
@@ -19,32 +26,8 @@ function createPosts(db, newPosts) {
 
         postsList.appendChild(copy)
     }
-    // }
-}
-    // if (post.text) {
-    //     const copy = document.getElementById("post_template").cloneNode()
-    //     copy.removeAttribute("id") // otherwise this will be hidden as well
-    //     copy.innerText = post.text
-    //     copy.setAttribute("data-post-id", post.id)
-    //
-    //     // Insert sorted on string text order - ignoring case
-    //     const postlist = document.getElementById("post_list")
-    //     const children = postlist.querySelectorAll("li[data-post-id]")
-    //     let inserted = false
-    //     for (let i = 0; (i < children.length) && !inserted; i++) {
-    //         const child = children[i]
-    //         const copy_text = copy.innerText.toUpperCase()
-    //         const child_text = child.innerText.toUpperCase()
-    //         if (copy_text < child_text) {
-    //             postlist.insertBefore(copy, child)
-    //             inserted = true
-    //         }
-    //     }
-    //     if (!inserted) { // Append child
-    //         postlist.appendChild(copy)
-    //     }
-    // }
 
+}
 
 // Register service worker to control making site work offline
 
@@ -84,19 +67,23 @@ window.onload = function () {
             });
         }
     }
+    // fetch the plants when the page is online and add them to indexeddb
     fetch('http://localhost:3000/plants')
         .then(function (res) {
             console.log("fetch");
             return res.json();
-        }).then(function (newPosts) {
-        openPostsIDB().then((db) => {
-            createPosts(db, newPosts)
-            deleteAllExistingPostsFromIDB(db).then(() => {
-                addPost(db, newPosts).then(() => {
-                    console.log("All new posts added to IDB")
-                })
-            });
-        });
-    })
+        }).then(async function (newPosts) {
+        const db = await openPostsIDB();
+        createPosts(db, newPosts);
+        await deleteAllExistingPostsFromIDB(db);
+        await addPost(db, newPosts);
+        console.log("All new posts added to IDB");
+
+    }).catch(async function (err) {
+        console.log("Page is offline");
+        const db = await openPostsIDB();
+        const posts = await getAllPosts(db);
+        createPosts(db, posts);
+    });
 
 }

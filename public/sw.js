@@ -12,6 +12,7 @@ self.addEventListener('install', (event) => {
                 '/create/',
                 'fetch.js',
                 'idb-utility.js',
+                'idb-index.js',
                 '/stylesheets/style.css',
                 '/stylesheets/media.css',
                 '/javascripts/create.js',
@@ -40,16 +41,26 @@ self.addEventListener('activate', (event) => {
     )
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
         const cache = await caches.open("static");
-        const cachedResponse = await cache.match(event.request);
-        if (cachedResponse) {
-            console.log('Service Worker: Fetching from Cache: ', event.request.url);
-            return cachedResponse;
+        try {
+            const cachedResponse = await cache.match(event.request);
+            if (cachedResponse) {
+                console.log('Service Worker: Fetching from Cache: ', event.request.url);
+                return cachedResponse;
+            }
+
+            const response = await fetch(event.request);
+            if (event.request.url.includes('/plant/')) {
+                cache.put(event.request, response.clone());
+            }
+            console.log('Service Worker: Fetching from URL: ', event.request.url);
+            return response;
+        } catch (err) {
+            console.error('Service Worker: Fetch failed: ', err);
+            return new Response('Network error occurred', { status: 408 });
         }
-        console.log('Service Worker: Fetching from URL: ', event.request.url);
-        return fetch(event.request);
     })());
 });
 
