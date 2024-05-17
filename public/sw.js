@@ -27,19 +27,25 @@ self.addEventListener('install', (event) => {
     })());
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', async (event) => {
     console.log('[Service Worker] : Activated');
     event.waitUntil(
         (async () => {
             const keys = await caches.keys();
             return keys.map(async (cache) => {
-                if(cache !== "static") {
-                    console.log('Service Worker: Removing old cache: '+cache);
+                if (cache !== "static") {
+                    console.log('Service Worker: Removing old cache: ' + cache);
                     return await caches.delete(cache);
                 }
             })
         })()
     )
+    const status = await navigator.permissions.query({name: 'periodic-background-sync'});
+    console.log(status)
+    if (status.state === 'granted') {
+        console.log("periodic sync permission granted");
+        await registerPeriodicSync();
+    }
 });
 
 self.addEventListener('fetch', (event) => {
@@ -74,7 +80,7 @@ self.addEventListener('sync', event => {
                 for (const syncPost of syncPosts) {
                     console.log('Service Worker: Syncing new Post: ', syncPost);
                     postCreatePostForm(syncPost).then(() => {
-                        deleteSyncPost(syncPostDB, syncPost.get("id"));
+                        deleteSyncPost(syncPostDB, Number(syncPost.get("id")));
                         console.log('Service Worker: Syncing new Post: ', syncPost, ' done');
                         self.registration.showNotification('Post Synced', {
                             body: 'Post synced successfully!',
@@ -86,4 +92,6 @@ self.addEventListener('sync', event => {
             });
         });
     }
+
+
 });
