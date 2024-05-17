@@ -1,11 +1,60 @@
-
-
+/**
+ * Register 'sync-posts' sync event with service worker
+ */
 function syncPosts() {
     navigator.serviceWorker.ready.then((sw) => {
         sw.sync.register("sync-post")
     }).then(() => {
         console.log("Sync registered");
     })
+}
+
+/**
+ * Open the 'sync-posts' indexedDB
+ * @return {Promise<unknown>}
+ */
+function openSyncPostsIDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("sync-posts", 1);
+
+        request.onerror = function (event) {
+            reject(new Error(`Database error: ${event.target}`));
+        };
+
+        request.onupgradeneeded = function (event) {
+            const db = event.target.result;
+            db.createObjectStore('sync-posts', {keyPath: 'id', autoIncrement: true});
+        };
+
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            resolve(db);
+        };
+    });
+}
+
+/**
+ * Open the 'posts' indexedDB
+ * @return {Promise<unknown>}
+ */
+function openPostsIDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("posts", 1);
+
+        request.onerror = function (event) {
+            reject(new Error(`Database error: ${event.target}`));
+        };
+
+        request.onupgradeneeded = function (event) {
+            const db = event.target.result;
+            db.createObjectStore('posts', {keyPath: '_id'});
+        };
+
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            resolve(db);
+        };
+    });
 }
 
 /**
@@ -90,7 +139,6 @@ function deleteAllExistingPostsFromIDB(postIDB) {
     });
 }
 
-
 function getAllPosts(postIDB) {
     return new Promise((resolve, reject) => {
         const transaction = postIDB.transaction(["posts"]);
@@ -153,46 +201,6 @@ function deleteSyncPost(syncPostIDB, key) {
     deleteRequest.addEventListener("success", () => {
         console.log("Deleted sync post with id:" + key)
     })
-}
-
-function openSyncPostsIDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open("sync-posts", 1);
-
-        request.onerror = function (event) {
-            reject(new Error(`Database error: ${event.target}`));
-        };
-
-        request.onupgradeneeded = function (event) {
-            const db = event.target.result;
-            db.createObjectStore('sync-posts', {keyPath: 'id', autoIncrement: true});
-        };
-
-        request.onsuccess = function (event) {
-            const db = event.target.result;
-            resolve(db);
-        };
-    });
-}
-
-function openPostsIDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open("posts", 1);
-
-        request.onerror = function (event) {
-            reject(new Error(`Database error: ${event.target}`));
-        };
-
-        request.onupgradeneeded = function (event) {
-            const db = event.target.result;
-            db.createObjectStore('posts', {keyPath: '_id'});
-        };
-
-        request.onsuccess = function (event) {
-            const db = event.target.result;
-            resolve(db);
-        };
-    });
 }
 
 function addPostToIDB(plantData) {
