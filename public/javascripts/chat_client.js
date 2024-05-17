@@ -21,6 +21,10 @@ socket.on('chat', function(userId, chatText) {
 
 function sendMessage(plantId) {
     let message = document.getElementById('chatInput').value;
+    if (message.length < 1) {
+        alert("Message cannot be empty!");
+        return;
+    }
     socket.emit('chat', plantId, username, message);
 }
 

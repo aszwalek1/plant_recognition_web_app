@@ -17,6 +17,8 @@ self.addEventListener('install', (event) => {
                 '/stylesheets/style.css',
                 '/stylesheets/media.css',
                 '/javascripts/create.js',
+                '/javascripts/locationname2.js',
+                '/javascripts/filter.js'
             ]);
             console.log('Service Worker: App Shell Cached');
         }
