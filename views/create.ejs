@@ -25,8 +25,11 @@
 
             <label for="location">Location: *(MOVE PIN TO SELECT LOCATION)</label><br>
             <div id="map" class="map"></div><br>
-            <label>Enter Coordinates in format x,y *</label>
-            <input type="text" id="location" name="location" required><br><br>
+            <label>Enter a valid latitude and longitude if offline. *</label>
+            <input type="text" id="location" name="location" required
+                   pattern="^(\+|-)?((([0-8]?[0-9])(\.\d+)?|90(\.0+)?)),\s*(\+|-)?((([1-9]?[0-9]|1[0-7][0-9])(\.\d+)?|180(\.0+)?))$"
+                   title="Enter a valid latitude and longitude in the format: 'lat, long' where lat ranges from -90 to 90 and long ranges from -180 to 180.">
+            <br><br>
 
             <label for="username">Your Nickname: *</label><br>
             <input type="text" id="username" name="username" required><br><br>
